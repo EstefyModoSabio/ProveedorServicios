@@ -21,7 +21,7 @@ public class ProveedorServicio {
     private ProveedorRepositorio proveedorRepositorio;
     
     @Transactional
-    public void crearProveedor(String cuit, String nombre, String telefono,String email, Profesion profesion)throws MiException{
+    public void crearProveedor(String cuit, String nombre, String telefono,String email, String profesion)throws MiException{
         
         
         validar(cuit, nombre, email, telefono, profesion);
@@ -32,8 +32,8 @@ public class ProveedorServicio {
         proveedor.setCuit(cuit);
         proveedor.setNombre(nombre);
         proveedor.setEmail(email);
-        proveedor.setTelefono(telefono);
-        proveedor.setProfesion(profesion);
+        proveedor.setTelefono(telefono);        
+        proveedor.setProfesion(Profesion.valueOf(profesion));
         
         proveedorRepositorio.save(proveedor);
         
@@ -64,7 +64,7 @@ public class ProveedorServicio {
        }
     }
     
-    private void validar(String cuit, String nombre, String email, String telefono, Profesion profesion)throws MiException{
+    private void validar(String cuit, String nombre, String email, String telefono, String profesion)throws MiException{
         if(cuit.isEmpty() || cuit == null){
             throw new MiException("el cuit no puede ser nulo");
         }
@@ -77,7 +77,7 @@ public class ProveedorServicio {
            if(email.isEmpty()){
             throw new MiException("el email no puede estar vacío");
         }
-            if(profesion == null){
+            if(profesion == null || profesion.isEmpty()){
             throw new MiException("debe ingresar una profesión");
         }
     }

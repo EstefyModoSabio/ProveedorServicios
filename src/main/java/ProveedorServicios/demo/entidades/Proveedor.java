@@ -39,7 +39,7 @@ public class Proveedor {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.profesion = profesion;
+        this.profesion = profesion.CERRAJERO;
         this.email = email;
         this.pass = pass;
         this.pass2 = pass2;

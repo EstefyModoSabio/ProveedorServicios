@@ -26,7 +26,7 @@ public class ProveedorControlador {
     }
     
     @PostMapping("/registro")
-    public String registro(@RequestParam String cuit,@RequestParam String nombre,@RequestParam String telefono, @RequestParam String email,@RequestParam Profesion profesion){
+    public String registro(@RequestParam String cuit,@RequestParam String nombre,@RequestParam String telefono, @RequestParam String email,@RequestParam String profesion){
        
         try {
             proveedorServicio.crearProveedor(cuit, nombre, telefono, email, profesion);
