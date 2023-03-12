@@ -5,23 +5,23 @@ import ProveedorServicios.demo.Enums.Rol;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
 public class Usuario {
     
-    @Id
-    @GeneratedValue(generator = "system_uuid")
+   @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private String Dni;
-    private String Nombre;
-    private String Direccion;
-    private int Telefono; 
-    private String Password;
-    private String Email;
-    @OneToOne
-    private Imagen Imagen;
-    private Rol Rol;
+    private String dni;
+    private String nombre;
+    private String direccion;
+    private String telefono; 
+    private String password;
+    private String email;
+    private Rol rol;
 
     
     public Usuario() {
@@ -36,68 +36,62 @@ public class Usuario {
     }
 
     public String getDni() {
-        return Dni;
+        return dni;
     }
 
     public void setDni(String dni) {
-        this.Dni = dni;
+        this.dni = dni;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        this.Nombre = nombre;
+        this.nombre = nombre;
     }
 
     public String getDireccion() {
-        return Direccion;
+        return direccion;
     }
 
     public void setDireccion(String direccion) {
-        this.Direccion = direccion;
+        this.direccion = direccion;
     }
 
-    public int getTelefono() {
-        return Telefono;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setTelefono(int telefono) {
-        this.Telefono = telefono;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.Password = password;
+        this.password = password;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        this.Email = email;
+        this.email = email;
     }
 
-    public Imagen getImagen() {
-        return Imagen;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.Imagen = imagen;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
-    public Enum getRol() {
-        return Rol;
-    }
-
-    public void setRol(Enum rol) {
-        this.Rol= (Rol) rol;
-    }
+   
 
     
 }
