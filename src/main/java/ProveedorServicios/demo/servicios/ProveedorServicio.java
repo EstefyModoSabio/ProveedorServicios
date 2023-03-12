@@ -119,6 +119,12 @@ public class ProveedorServicio {
         }
     }
     
+    
+    public void eliminarProveedor(String cuit){
+        
+       proveedorRepositorio.deleteById(cuit);
+    }
+    
     public Proveedor getOne(String cuit){
         return proveedorRepositorio.getOne(cuit);
     }

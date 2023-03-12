@@ -87,7 +87,11 @@ public class ProveedorControlador {
         
     }
     
-    
+    @GetMapping("/eliminar/{cuit}")
+    public String eliminar(@PathVariable String cuit, ModelMap modelo){
+        proveedorServicio.eliminarProveedor(cuit);
+        return "redirect:../lista";
+    }
     
     
 }

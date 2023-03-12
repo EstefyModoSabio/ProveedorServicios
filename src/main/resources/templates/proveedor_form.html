@@ -23,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <form action="/proveedor/registro" method="POST">
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">CUIT</label>
-                    <input type="text" class="form-control" name="cuit">
+                    <input type="number" class="form-control" name="cuit">
                 </div>    
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Nombre</label>
@@ -37,12 +37,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <label for="exampleInputEmail1" class="form-label">Email</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Profesión</label>
-                    <input type="text" class="form-control" name="">
-                </div>
+                
                 <div class="form-group my-3">
-                    <p>Seleccione el Servicio</p>
+                    <p>Seleccione la Profesión</p>
                     <select name="profesion">
                         <option></option>
                         <option th:each="proveedor : ${proveedores}" th:text="${proveedor}"/>
@@ -50,6 +47,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
 
                 <button type="submit" class="btn btn-primary">Cargar</button>
+                <a type="submit"href="/" class="btn btn-info">Volver</a>
 
             </form>
             <div th:if="${error != null}" class="card text-white bg-danger mb-2 mensajeError">
