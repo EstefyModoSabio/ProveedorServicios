@@ -3,6 +3,7 @@ package ProveedorServicios.demo.entidades;
 
 import ProveedorServicios.demo.enums.Profesion;
 import ProveedorServicios.demo.enums.Rol;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,6 +18,8 @@ public class Proveedor {
     private String nombre;
     private String direccion;
     private String telefono;
+    
+    
     
     @Enumerated(EnumType.STRING)
     private Profesion profesion;

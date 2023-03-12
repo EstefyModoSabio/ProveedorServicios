@@ -33,8 +33,24 @@ public class ProveedorServicio {
         proveedor.setNombre(nombre);
         proveedor.setEmail(email);
         proveedor.setTelefono(telefono);        
-        proveedor.setProfesion(Profesion.valueOf(profesion));
-        
+        if(profesion.toUpperCase().equals("PLOMERO")){
+            proveedor.setProfesion(Profesion.PLOMERO);
+        }
+        if(profesion.toUpperCase().equals("GASISTA")){
+            proveedor.setProfesion(Profesion.GASISTA);
+        }
+        if(profesion.toUpperCase().equals("ELECTRICISTA")){
+            proveedor.setProfesion(Profesion.ELECTRICISTA);
+        }
+        if(profesion.toUpperCase().equals("CERRAJERO")){
+            proveedor.setProfesion(Profesion.CERRAJERO);
+        }
+        if(profesion.toUpperCase().equals("JARDINERO")){
+            proveedor.setProfesion(Profesion.JARDINERO);
+        }
+        if(profesion.toUpperCase().equals("PINTOR")){
+            proveedor.setProfesion(Profesion.PINTOR);
+        }
         proveedorRepositorio.save(proveedor);
         
     }
@@ -48,16 +64,37 @@ public class ProveedorServicio {
     }
     
     @Transactional
-    public void editarProveedor(String cuit, String direccion, Integer honorarios, Rol rol){
+    public void editarProveedor(String cuit, String nombre, String email, String telefono, String profesion) throws MiException{
         
+       validar(cuit, nombre, email, telefono, profesion);
        
        Optional<Proveedor> respuesta = proveedorRepositorio.findById(cuit);
        
        if(respuesta.isPresent()){
            Proveedor proveedor = respuesta.get();
-           proveedor.setDireccion(direccion);
-           proveedor.setHonorarios(honorarios);
-           proveedor.setRol(rol);
+           
+           
+           proveedor.setNombre(nombre);
+           proveedor.setTelefono(telefono);
+           proveedor.setEmail(email);
+           if(profesion.toUpperCase().equals("PLOMERO")){
+            proveedor.setProfesion(Profesion.PLOMERO);
+        }
+        if(profesion.toUpperCase().equals("GASISTA")){
+            proveedor.setProfesion(Profesion.GASISTA);
+        }
+        if(profesion.toUpperCase().equals("ELECTRICISTA")){
+            proveedor.setProfesion(Profesion.ELECTRICISTA);
+        }
+        if(profesion.toUpperCase().equals("CERRAJERO")){
+            proveedor.setProfesion(Profesion.CERRAJERO);
+        }
+        if(profesion.toUpperCase().equals("JARDINERO")){
+            proveedor.setProfesion(Profesion.JARDINERO);
+        }
+        if(profesion.toUpperCase().equals("PINTOR")){
+            proveedor.setProfesion(Profesion.PINTOR);
+        }
            
            proveedorRepositorio.save(proveedor);
            
@@ -66,7 +103,7 @@ public class ProveedorServicio {
     
     private void validar(String cuit, String nombre, String email, String telefono, String profesion)throws MiException{
         if(cuit.isEmpty() || cuit == null){
-            throw new MiException("el cuit no puede ser nulo");
+            throw new MiException("Ups! El cuit no puede estar vacío");
         }
          if(nombre.isEmpty() || nombre == null){
             throw new MiException("el nombre no puede ser nulo");
@@ -80,5 +117,9 @@ public class ProveedorServicio {
             if(profesion == null || profesion.isEmpty()){
             throw new MiException("debe ingresar una profesión");
         }
+    }
+    
+    public Proveedor getOne(String cuit){
+        return proveedorRepositorio.getOne(cuit);
     }
 }
