@@ -63,6 +63,22 @@ public class ProveedorServicio {
         return proveedores;
     }
     
+    public List<Proveedor> listarProveedoresPorNombre(String nombre){
+        List<Proveedor> proveedores = new ArrayList();
+        
+        proveedores = proveedorRepositorio.buscarPorNombre(nombre);
+        
+        return proveedores;
+    }
+    
+    public List<Proveedor> listarProveedoresPorOficio(String profesion){
+        List<Proveedor> proveedores = new ArrayList();
+        
+        proveedores = proveedorRepositorio.buscarPorProfesion(Profesion.valueOf(profesion));
+        
+        return proveedores;
+    }
+    
     @Transactional
     public void editarProveedor(String cuit, String nombre, String email, String telefono, String profesion) throws MiException{
         
