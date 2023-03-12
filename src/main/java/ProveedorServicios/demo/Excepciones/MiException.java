@@ -9,6 +9,10 @@ package ProveedorServicios.demo.Excepciones;
  *
  * @author usuario
  */
-public class Exception {
+public class MiException extends Exception{
+
+    public MiException(String msg){
+        super(msg);
+    }
     
 }

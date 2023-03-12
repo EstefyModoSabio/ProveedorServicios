@@ -9,6 +9,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TrabajoRepositorio extends JpaRepository<Trabajo, String>{
     
-    
-    
 }
