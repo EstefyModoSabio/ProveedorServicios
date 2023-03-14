@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Proveedor extends Usuario {
     
-   @Id
+    @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
@@ -20,6 +20,9 @@ public class Proveedor extends Usuario {
     private float calificacion;
     private int honorarios;
     private String cuit;
+
+    public Proveedor() {
+    }
 
     public String getCuit() {
         return cuit;

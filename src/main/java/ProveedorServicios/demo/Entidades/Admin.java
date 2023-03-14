@@ -9,11 +9,25 @@ import javax.persistence.Id;
 @Entity
 public class Admin extends Usuario{
     
-     @Id
+    @Id
     @GeneratedValue(generator = "system=uuid")
     private String id;
-     private String Barrio;
+    private String Barrio;
+    private String hola;
 
+    public Admin() {
+    }
+
+    public String getHola() {
+        return hola;
+    }
+
+    public void setHola(String hola) {
+        this.hola = hola;
+    }
+     
+
+    
     public String getId() {
         return id;
     }
