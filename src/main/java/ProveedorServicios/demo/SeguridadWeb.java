@@ -29,7 +29,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/admin/*").hasRole("DUEÑO")
+                .antMatchers("/admin/*").hasRole("ADMINISTRADOR")
                 .antMatchers("/css/*", "/js/*", "/img/*", "/**")
                 .permitAll()
                 .and().formLogin()
