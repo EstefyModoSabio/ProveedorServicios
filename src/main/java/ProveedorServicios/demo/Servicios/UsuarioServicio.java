@@ -8,6 +8,7 @@ import ProveedorServicios.demo.Excepciones.MiException;
 import ProveedorServicios.demo.Repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,44 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
         return usuario;
     }
+    
+   
+    @Transactional
+    public void editarUsuario(String dni, String nombre, String direccion, String telefono,
+            String password, String email, Rol rol){
+        
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(dni);
+        if(respuesta.isPresent()){
+            Usuario usuario = respuesta.get();
+            usuario.setNombre(nombre);
+            usuario.setDireccion(direccion);
+            usuario.setTelefono(telefono);
+            usuario.setEmail(email);
+            
+            usuarioRepositorio.save(usuario);
+        }
+        
+    }
+    
+     public List<Usuario> listarUsuarios(){
+        List<Usuario> usuarios = new ArrayList();
+        
+        usuarios = usuarioRepositorio.findAll();
+        
+        return usuarios;
+    }
+    
+    
+    public Usuario getOne(String id){
+        
+        return usuarioRepositorio.getOne(id);
+        
+    }
+    
+    public void eliminarUsuario(String id){
+        usuarioRepositorio.deleteById(id);
+    }
+    
     
     public void validar(String dni, String nombre, String direccion, String telefono,
             String password, String email, Rol rol) throws MiException {

@@ -68,6 +68,17 @@ public class ProveedorServicios {
        }
     }
 
+    public void eliminarProveedor(String id) {
+
+        proveedorRepositorio.deleteById(id);
+    }
+
+    public Proveedor getOne(String id) {
+        return proveedorRepositorio.getOne(id);
+    }
+
+
+
     private void validar(String cuit, String nombre, String email, String telefono, Profesion profesion)throws MiException{
         if(cuit.isEmpty() || cuit == null){
             throw new MiException("el cuit no puede ser nulo");
