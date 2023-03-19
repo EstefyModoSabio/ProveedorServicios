@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ProveedorServicios.demo.Enums;
+package ProveedorServicios.demo.Excepciones;
 
 /**
  *
  * @author usuario
  */
-public enum Enum {
+public class MiException extends Exception{
+
+    public MiException(String msg){
+        super(msg);
+    }
     
 }

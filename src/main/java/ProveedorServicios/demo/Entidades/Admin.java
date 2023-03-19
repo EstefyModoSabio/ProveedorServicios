@@ -1,41 +1,28 @@
-
 package ProveedorServicios.demo.Entidades;
 
 import ProveedorServicios.demo.Enums.Rol;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 
-
 @Entity
-public class Usuario {
-    
+public class Admin {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    private String Barrio;
     private String dni;
     private String nombre;
     private String direccion;
-    private String telefono; 
+    private String telefono;
     private String password;
     private String email;
     private Rol rol;
-    @OneToOne
-    private Imagen imagen;
 
-    
-    public Usuario() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public Admin() {
     }
 
     public String getDni() {
@@ -94,4 +81,20 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public String getId() {
+        return id;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getBarrio() {
+        return Barrio;
+    }
+
+    public void setBarrio(String Barrio) {
+        this.Barrio = Barrio;
+    }
+
+}

@@ -1,7 +1,9 @@
 
 package ProveedorServicios.demo.Entidades;
 
+import ProveedorServicios.demo.Enums.Profesion;
 import ProveedorServicios.demo.Enums.Rol;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,8 +11,9 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 
+
 @Entity
-public class Usuario {
+public class Proveedor {
     
     @Id
     @GeneratedValue(generator = "uuid")
@@ -19,23 +22,23 @@ public class Usuario {
     private String dni;
     private String nombre;
     private String direccion;
-    private String telefono; 
+    private String telefono;
     private String password;
     private String email;
     private Rol rol;
+    @Column
+    private Profesion profesion;
+    @Column
+    private float calificacion;
+    @Column
+    private int honorarios;
+    @Column
+    private String cuit;
     @OneToOne
     private Imagen imagen;
 
-    
-    public Usuario() {
-    }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public Proveedor() {
     }
 
     public String getDni() {
@@ -94,4 +97,50 @@ public class Usuario {
         this.rol = rol;
     }
 
+    
+    public String getCuit() {
+        return cuit;
     }
+
+    public void setCuit(String cuit) {
+        this.cuit = cuit;
+    }
+    
+        public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Profesion getProfesion() {
+        return profesion;
+    }
+
+    public void setProfesion(Profesion profesion) {
+        this.profesion = profesion;
+    }
+
+    public float getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(float calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public int getHonorarios() {
+        return honorarios;
+    }
+
+    public void setHonorarios(int honorarios) {
+        this.honorarios = honorarios;
+    }
+
+    
+   
+    
+    
+    
+}
