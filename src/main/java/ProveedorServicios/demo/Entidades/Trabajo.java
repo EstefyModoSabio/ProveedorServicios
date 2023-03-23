@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,8 +18,10 @@ public class Trabajo {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private int NumeroPedido;
-    private String Dni;
-    private String Cuit;
+    @OneToOne
+    private Usuario Dni;
+    @OneToOne
+    private Proveedor Cuit;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date FechaBaja;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -29,6 +32,7 @@ public class Trabajo {
     public Trabajo() {
     }
 
+    
     public String getId() {
         return id;
     }
@@ -43,22 +47,6 @@ public class Trabajo {
 
     public void setNumeroPedido(int NumeroPedido) {
         this.NumeroPedido = NumeroPedido;
-    }
-
-    public String getDni() {
-        return Dni;
-    }
-
-    public void setDni(String Dni) {
-        this.Dni = Dni;
-    }
-
-    public String getCuit() {
-        return Cuit;
-    }
-
-    public void setCuit(String Cuit) {
-        this.Cuit = Cuit;
     }
 
     public Date getFechaBaja() {
