@@ -32,7 +32,22 @@ public class Trabajo {
     public Trabajo() {
     }
 
-    
+    public Usuario getDni() {
+        return Dni;
+    }
+
+    public void setDni(Usuario Dni) {
+        this.Dni = Dni;
+    }
+
+    public Proveedor getCuit() {
+        return Cuit;
+    }
+
+    public void setCuit(Proveedor Cuit) {
+        this.Cuit = Cuit;
+    }
+
     public String getId() {
         return id;
     }
