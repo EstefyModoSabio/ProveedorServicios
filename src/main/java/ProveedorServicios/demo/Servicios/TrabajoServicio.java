@@ -1,6 +1,8 @@
 package ProveedorServicios.demo.Servicios;
 
+import ProveedorServicios.demo.Entidades.Proveedor;
 import ProveedorServicios.demo.Entidades.Trabajo;
+import ProveedorServicios.demo.Entidades.Usuario;
 import ProveedorServicios.demo.Excepciones.MiException;
 import ProveedorServicios.demo.Repositorios.TrabajoRepositorio;
 import java.util.Date;
@@ -15,7 +17,7 @@ public class TrabajoServicio {
     @Autowired
     private TrabajoRepositorio trabajoRepo;
 
-    public void crearTrabajo(int NumeroPedido, String Dni, String Cuit,
+    public void crearTrabajo(int NumeroPedido, Usuario Dni, Proveedor Cuit,
             Date FechaBaja, Date FechaAlta, boolean Activo, String Reseña) {
 
         Trabajo trabajo = new Trabajo();
@@ -31,7 +33,7 @@ public class TrabajoServicio {
         trabajoRepo.save(trabajo);
     }
 
-    public void editarTrabajo(String id, int NumeroPedido, String Dni, String Cuit,
+    public void editarTrabajo(String id, int NumeroPedido, Usuario Dni, Proveedor Cuit,
             Date FechaBaja, Date FechaAlta, boolean Activo, String Reseña) throws MiException {
 
         Optional<Trabajo> respuesta = trabajoRepo.findById(id);

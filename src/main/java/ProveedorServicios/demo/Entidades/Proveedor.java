@@ -37,6 +37,14 @@ public class Proveedor {
     @OneToOne
     private Imagen imagen;
 
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
 
     public Proveedor() {
     }

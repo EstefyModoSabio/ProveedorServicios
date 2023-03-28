@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,16 +18,45 @@ public class Trabajo {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private int NumeroPedido;
-    private String Dni;
-    private String Cuit;
+    @OneToOne
+    private Usuario Dni;
+    @OneToOne
+    private Proveedor Cuit;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date FechaBaja;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date FechaAlta;
     private boolean Activo;
     private String Reseña;
-
+    @OneToOne
+    private Imagen imagen;
+    
     public Trabajo() {
+    }
+
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    
+    public Usuario getDni() {
+        return Dni;
+    }
+
+    public void setDni(Usuario Dni) {
+        this.Dni = Dni;
+    }
+
+    public Proveedor getCuit() {
+        return Cuit;
+    }
+
+    public void setCuit(Proveedor Cuit) {
+        this.Cuit = Cuit;
     }
 
     public String getId() {
@@ -43,22 +73,6 @@ public class Trabajo {
 
     public void setNumeroPedido(int NumeroPedido) {
         this.NumeroPedido = NumeroPedido;
-    }
-
-    public String getDni() {
-        return Dni;
-    }
-
-    public void setDni(String Dni) {
-        this.Dni = Dni;
-    }
-
-    public String getCuit() {
-        return Cuit;
-    }
-
-    public void setCuit(String Cuit) {
-        this.Cuit = Cuit;
     }
 
     public Date getFechaBaja() {
