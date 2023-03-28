@@ -26,6 +26,15 @@ public class Usuario {
     @OneToOne
     private Imagen imagen;
 
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    
     
     public Usuario() {
     }
