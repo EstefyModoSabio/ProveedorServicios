@@ -68,6 +68,7 @@ public class ProveedorServicios {
        }
     }
 
+
     public void eliminarProveedor(String id) {
 
         proveedorRepositorio.deleteById(id);
@@ -76,6 +77,7 @@ public class ProveedorServicios {
     public Proveedor getOne(String id) {
         return proveedorRepositorio.getOne(id);
     }
+
 
 
 
