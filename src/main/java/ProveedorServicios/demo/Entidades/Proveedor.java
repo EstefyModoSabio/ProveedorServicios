@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import javax.persistence.OneToOne;
+
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -18,21 +21,40 @@ public class Proveedor {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
+    private String dni;
+    private String nombre;
+    private String direccion;
+    private String telefono;
+
      private String dni;
     private String nombre;
     private String direccion;
     private String telefono; 
+
     private String password;
     private String email;
     private Rol rol;
     @Column
     private Profesion profesion;
+
+    @Column
+    private float calificacion;
+    @Column
+    private int honorarios;
+    @Column
+    private String cuit;
+    @OneToOne
+    private Imagen imagen;
+
+
      @Column
     private float calificacion;
       @Column
     private int honorarios;
        @Column
     private String cuit;
+
 
     public Proveedor() {
     }
