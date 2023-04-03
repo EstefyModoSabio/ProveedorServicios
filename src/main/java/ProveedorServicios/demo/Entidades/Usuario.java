@@ -30,6 +30,15 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    
     public String getId() {
         return id;
     }

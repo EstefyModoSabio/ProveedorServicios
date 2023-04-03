@@ -1,0 +1,114 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
+        <script src="https://kit.fontawesome.com/79d46aa597.js" crossorigin="anonymous"></script>
+        <link rel='stylesheet' href="../css/loginProveedor.css" >
+    </head>
+
+    <body>
+        <div class="section">
+            <div class="container">
+                <div class="row full-height justify-content-center">
+                    <div class="col-12 text-center align-self-center py-5">
+                        <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                            <h6 class="mb-0 pb-3"><span>Iniciar Sesion </span><span>Registrarse</span></h6>
+                            <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+                            <label for="reg-log"></label>
+                            <div class="card-3d-wrap mx-auto">
+                                <div class="card-3d-wrapper">
+                                    <form class="card-front" th:action="@{/logincheck}" method="POST">
+                                        <div class="center-wrap">
+                                            <div class="section text-center">
+                                                <h4 class="mb-4 pb-3">Iniciar Sesion </h4>
+                                                <div class="form-group">
+                                                    <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off">
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>	
+                                                <div class="form-group mt-2">
+                                                    <input type="password" name="logpass" class="form-style" placeholder="Password" id="logpass" autocomplete="off">
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>
+                                                <button href="index (1).html" class="btn mt-4">Iniciar Sesion</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <form class="card-back" th:action="@{/proveedor/registrar}" method="POST" enctype="multipart/form-data" >
+                                        <div class="center-wrap">
+                                            <div class="section text-center">
+                                                <h4 class="mb-4 pb-3">Registrarse</h4>
+                                                <div class="form-group">
+                                                    <input type="text" name="cuit" class="form-style" placeholder="CUIT" id="cuit" autocomplete="off">
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>	
+                                                <div class="form-group mt-2">
+                                                    <input type="text" name="nombre" class="form-style" placeholder="Nombre Completo" id="nombre" autocomplete="off">
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>	
+                                                <div class="form-group mt-2">
+                                                    <input type="text" name="direccion" class="form-style" placeholder="Direccion" id="direccion" autocomplete="off">
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>
+
+                                                <div class="form-group mt-2">
+                                                    <input type="text" name="telefonos" class="form-style" placeholder="Teléfonos" id="telefonos" autocomplete="off">
+                                                    <i class="input-icon uil uil-phone"></i>
+                                                </div>	
+
+                                                <div class="form-group mt-2">
+                                                    <input type="email" name="email" class="form-style" placeholder="Email" id="email" autocomplete="off">
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="password" name="pass" class="form-style" placeholder="Contraseña" id="pass" autocomplete="off">
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>  
+                                                <div class="form-group mt-2">
+                                                    <input type="password" name="pass2" class="form-style" placeholder="Repetir Contraseña" id="pass2" autocomplete="off">
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>    
+                                                <!--<div class="form-group mt-2">
+                                                    <input type="text" name="profesion" class="form-style" placeholder="Profesión" id="profesion" autocomplete="off">
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>                                             
+                                                -->
+                                                <div class="form-group mt-2">
+                                                    <div class="form-group my-3">
+                                                        <p>Seleccione la Profesión</p>
+                                                        <select name="profesion">
+                                                            <option></option>
+                                                            <option th:each="proveedor : ${proveedores}" th:text="${proveedor}"/>
+                                                        </select>
+                                                    </div>
+                                                </div>   
+                                                <div class="form-group mt-2">
+                                                    <label for="imagen">Agregar imagen:</label>
+                                                    <input type="file" id="imagen" name="imagen"class="form-style">
+                                                </div> 
+                                                <div class="form-group mt-2">
+                                                    <textarea type="text" name="presentacion" class="form-style" placeholder="Presentación" id="presentacion" autocomplete="off"></textarea><i class="input-icon uil uil-user"></i>
+                                                </div>                                       
+
+                                                <a href="registroProveedor.html" class="btn mt-4">Registrarse</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div th:if="${error != null}" class="card text-white bg-danger mb-2 mensajeError">
+            <div class="card-body">
+                <h5 class="card-title">Ups!</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>    
+        </div>
+
+    </body>
+</html>

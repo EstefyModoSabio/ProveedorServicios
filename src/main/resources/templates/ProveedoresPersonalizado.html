@@ -1,0 +1,263 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Proveedores Personalizados</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="../css/vistaProveedorCss.css">
+
+    </head>
+    <body>
+        <header th:replace="/fragments/header :: header" />
+
+        <div class="container mt-5" style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Proveedores</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Lista de proveedores</li>
+            </ol>
+        </div>
+
+        <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+            <div class="row align-items-center g-lg-5 py-5">
+                <div class="col-lg-7 text-center text-lg-start">
+                    <h1 class="display-4 fw-bold lh-1 mb-3">Proveedores</h1>
+                    <p class="col-lg-10 fs-4">Acá podés elegir a tu proveedor</p>
+                </div>
+                <div class="col-md-10 mx-auto col-lg-5">
+                </div>
+            </div>
+        </div>
+
+        <main class="mb-5">
+
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            <div class="row align-items-center container ">
+                <div class="col-md-6">
+                    <div class=" m-3">
+                        <h5 class="card-title">Proveedores <span class="text-muted fw-normal ms-2"></span></h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                        <div class="dropdown">
+                            <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ordenar</a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Nombre</a></li>
+                                <li><a class="dropdown-item" href="#">Calificacion</a></li>
+                                <li><a class="dropdown-item" href="#">Cantidad de trabajos</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a href="#offcanvasExample" data-bs-toggle="offcanvas" a aria-controls="offcanvasExample" role="button"  class="btn btn-primary"> flitrar</a>
+                            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                                <form th:action="@{/filtroBusqueda}" method="POST" >
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtros</h5>
+                                        <a type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></a>
+                                    </div>
+                                    <ul class="offcanvas-body">
+                                        <li class="form-check">
+                                            <h5>Actividad</h5>
+                                            <input class="check-box-filter form-check-input" type="checkbox" value="" id="flexCheckDefault ">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                <span>Albañil</span>
+                                            </label>
+                                        </li>
+                                        <li class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Plomero
+                                            </label>
+                                        </li>
+                                        <li class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Electricista
+                                            </label>
+                                        </li>
+                                        <li class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Mecanico
+                                            </label>
+                                        </li>
+                                        <li class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Jardinero
+                                            </label>
+                                        </li>
+                                        <button type="submit" > Filtrar Busqueda</button>
+                                </form>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row" th:each="proveedores: ${proveedores}">
+                    <div class="col-md-6 col-xl-3 cards">
+                        <div class="card m-b-30">
+                            <div class="card-body row">
+                                <div class="col-6">
+                                    <a href=""><img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="img-fluid rounded-circle w-60"></a>
+                                </div>
+                                <div class="col-6 card-title align-self-center mb-0">
+                                    <h5 th:text="${proveedores:.nombre}"></h5>
+                                    <p class="m-0" th:text="${proveedores:.profesion}"></p>
+                                </div>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item starsPadre " id="stars"><span th:text="${proveedores:.calificacion}" class="rating"></span> <span class="stars"  ></span><span class="starsNoFill"></span></li>
+                                <li class="list-group-item"><a class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">Ver perfil <i class="bi bi-eye-fill"></i></a></li>
+                                <div class="modal fade modalCard" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            </div>
+                                            <div class="modal-body">
+                                                <div align="center">
+                                                    <div class="profile-image float-md-right">
+                                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                                             alt="">
+                                                    </div>
+                                                </div>
+                                                <div th:if="${nombre =! null}">
+                                                    <p><strong>NOMBRE</strong></p>
+                                                    <p class="text-secondary" th:text="${proveedor.nombre}"></p>
+                                                </div>
+                                                <div th:if="${ profesion =! null}">
+                                                    <p><strong>PROFESION</strong></p>
+                                                    <p class="text-secondary" th:text="${proveedor.profesion}"></p>
+                                                </div>
+                                                <div th:if="${ honorarios =! null}">
+                                                    <strong>HONORARIOS</strong>
+                                                    <p class="text-secondary" th:text="${proveedor.honorarios}"></p>
+                                                </div>
+                                                <div th:if="${ celular =! null}">
+                                                    <p><strong>CELULAR</strong></p>
+                                                    <p class="text-secondary" th:text="${proveedor.celular}"></p>
+                                                </div>
+                                                <br>
+                                                <div>
+                                                    <!-- Colocar en esta etiqueta de th la ruta que redirige a Contratar y al perfil del proveedor reespectivamente -->
+                                                    <a h:href="@{}" class="btn btn-outline-primary">CONTRATAR</a>
+                                                    <a
+                                                        h:href="@{}"
+                                                        class="btn btn-outline-primary">VER PERFIL</a>
+                                                </div>
+                                                <p class="social-icon m-t-5 m-b-0"></p>
+                                                <div class="buttons">
+                                                    <label>
+                                                        <div class="starsDestino"></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a type="button" class="btn btn-secondary"
+                                                   data-bs-dismiss="modal">Cerrar</a>
+                                                <a type="button" class="btn btn-primary">Contratar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                            <div class="card-body">
+
+                                <ul class="social-links list-inline mb-0">
+                                    <a class="btn btn-primary">Solicitar servicio</a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </main>
+
+        <div class="b-example-divider"></div>
+        <div class="p-3 text-bg-dark">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <span class="nav-link px-2 text-secondary">&copy; 2023 Barrios Privados, Inc</span>
+                </div>
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+                </ul>
+            </footer>
+        </div>
+        <script>
+
+            const cards = document.querySelectorAll('.cards')
+            console.log('%cvistaProveedores.html line:252 cards', 'color: #007acc;', cards);
+
+            cards.forEach( card =>{
+            const rating = parseFloat(card.querySelector(".rating").textContent)
+            console.log(rating)
+            const stars = card.querySelector(".stars")
+            const starsNoFill = card.querySelector(".starsNoFill")
+            console.log(starsNoFill)
+
+            if (rating % 1 !== 0){
+
+            for( let i = 1 ; i < rating; i++){
+            const icon = document.createElement("i")
+            icon.classList.add('bi', 'bi-star-fill')
+            stars.appendChild(icon)
+            }
+            const icon1 = document.createElement('i');
+            icon1.classList.add('bi', 'bi-star-half');
+            stars.appendChild(icon1);
+
+            const leftRating =  5 - rating
+            console.log(leftRating)
+            for( let i = 1 ; i < leftRating ; i++){
+            const icon = document.createElement("i")
+            icon.classList.add('bi', 'bi-star')
+            starsNoFill.appendChild(icon)
+            }
+            }else{
+            for( let i = 0 ; i < rating; i++){
+            const icon2 = document.createElement("i")
+            icon2.classList.add('bi', 'bi-star-fill')
+            stars.appendChild(icon2)
+            }
+            const leftRating =  5 - rating
+            console.log(leftRating)
+            for( let i = 0 ; i < leftRating ; i++){
+            const icon = document.createElement("i")
+            icon.classList.add('bi', 'bi-star')
+            starsNoFill.appendChild(icon)
+            }
+            }
+            }
+            )
+
+            const modalCard = document.querySelectorAll('.modalCard')
+
+            modalCard.forEach (cardModal =>{
+
+            const starModal = document.querySelector(".starsPadre")
+            console.log(starModal)
+            const starsDestino = document.querySelector(".starsDestino")
+            console.log('%cvistaProveedores.html line:557 starsDestino', 'color: #007acc;', starsDestino);
+
+            starsDestino.innerHTML = starModal.innerHTML
+            }) 
+
+            const starsVacias = document.getElementById("starsVacias")
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    </body>
+
+</html>

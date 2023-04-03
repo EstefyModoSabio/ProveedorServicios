@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,10 +26,22 @@ public class Trabajo {
     private Date FechaAlta;
     private boolean Activo;
     private String Reseña;
+    @OneToOne
+    private Imagen imagen;
 
     public Trabajo() {
     }
 
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    
+    
     public String getId() {
         return id;
     }

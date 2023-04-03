@@ -1,0 +1,13 @@
+<div>
+    <h4>Que estás buscando?</h4>
+    <div class="mb-3">
+        <form class="d-flex" role="search"  action="/buscar" method="POST" aria-label="Search">
+            <input class="form-control me-2" th:value="${busqueda}" type="search" placeholder="Ingresa el oficio" aria-label="Search" id="busqueda" name="busqueda">
+
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </div>
+    
+     <a  sec:authorize="hasRole('ROLE_PROFESIONAL')" th:href="@{/proveedor/registrar}" class="btn btn-primary">Cargar Proveedor</a>
+     <a  sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{/proveedor/lista}" class="btn btn-primary">Lista de Profesionales</a>
+</div>

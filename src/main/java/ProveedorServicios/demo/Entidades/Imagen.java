@@ -16,7 +16,6 @@ public class Imagen {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
     //Atriburo que asigna el formato del archivo de la imagen
     private String mime;
     private String nombre;

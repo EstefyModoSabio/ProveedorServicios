@@ -1,7 +1,6 @@
-
 package ProveedorServicios.demo.Servicios;
 
-
+import ProveedorServicios.demo.Entidades.Imagen;
 import ProveedorServicios.demo.Entidades.Usuario;
 import ProveedorServicios.demo.Enums.Rol;
 import ProveedorServicios.demo.Excepciones.MiException;
@@ -12,9 +11,9 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,14 +21,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
-    
-     @Autowired
+
+    @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
+    @Autowired
+    private ImagenServicio imagenServicio;
+    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
@@ -48,89 +50,76 @@ public class UsuarioServicio implements UserDetailsService {
             return null;
         }
     }
-
+ 
     @Transactional
-    public Usuario crearUsuario(String dni, String nombre, String direccion, String telefono,
-            String password, String email, Rol rol) throws MiException {
+    public Usuario crearUsuario(String nombre, String email, String pass, String pass2, MultipartFile imagen,
+                               String dni, String direccion, String telefono) throws MiException {
 
-        validar(dni, nombre, direccion, telefono, password, email, rol);
+        validar(nombre, email, pass, pass2);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
+        usuario.setEmail(email);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(pass));
+        usuario.setRol(Rol.USUARIO);
+        Imagen foto = imagenServicio.guardarImagen(imagen);
+        usuario.setImagen(foto);
         usuario.setDni(dni);
         usuario.setDireccion(direccion);
-        usuario.setEmail(email);
         usuario.setTelefono(telefono);
-        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(rol);
-
         usuarioRepositorio.save(usuario);
         return usuario;
     }
-    
-   
+
     @Transactional
-    public void editarUsuario(String dni, String nombre, String direccion, String telefono,
-            String password, String email, Rol rol){
-        
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(dni);
-        if(respuesta.isPresent()){
+    public void editarUsuario(String id, String nombre, String email) {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
             usuario.setNombre(nombre);
-            usuario.setDireccion(direccion);
-            usuario.setTelefono(telefono);
+
             usuario.setEmail(email);
-            
+
             usuarioRepositorio.save(usuario);
         }
-        
+
     }
-    
-     public List<Usuario> listarUsuarios(){
-        List<Usuario> usuarios = new ArrayList();
-        
-        usuarios = usuarioRepositorio.findAll();
-        
+
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> usuarios = usuarioRepositorio.findAll();
+
         return usuarios;
     }
-    
-    
-    public Usuario getOne(String id){
-        
-        return usuarioRepositorio.getOne(id);
-        
+
+    public Usuario buscarPorNombre(String nombre) {
+        return usuarioRepositorio.buscarPorNombre(nombre);
     }
-    
-    public void eliminarUsuario(String id){
+
+    public Usuario getOne(String id) {
+
+        return usuarioRepositorio.getOne(id);
+
+    }
+
+    public void eliminarUsuario(String id) {
         usuarioRepositorio.deleteById(id);
     }
-    
-    
-    public void validar(String dni, String nombre, String direccion, String telefono,
-            String password, String email, Rol rol) throws MiException {
 
-        if (dni.isEmpty()) {
-            throw new MiException("dni nulo o invalido");
-        }
+    public void validar(String nombre, String email, String pass, String pass2) throws MiException {
+
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("nombre nulo o invalido");
         }
-        if (direccion.isEmpty() || direccion == null) {
-            throw new MiException("direccion nulo o invalido");
-        }
-        if (telefono.isEmpty() || telefono == null) {
-            throw new MiException("telefono nulo o invalido");
-        }
-        if (password.isEmpty() || password == null) {
+
+        if (pass.isEmpty() || pass == null) {
             throw new MiException("password nulo o invalido");
         }
         if (email.isEmpty() || email == null) {
             throw new MiException("email nulo o invalido");
         }
-        if (rol == null || rol == null) {
-            throw new MiException("rol nulo o invalido");
+        if (!pass2.equals(pass)) {
+            throw new MiException("las contraseñas no coinciden");
         }
     }
-    
-    
-    
+
 }
