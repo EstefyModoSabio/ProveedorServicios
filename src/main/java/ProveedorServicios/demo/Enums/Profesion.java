@@ -8,6 +8,10 @@ public enum Profesion {
     GASISTA,
     PLOMERO,
     ELECTRICISTA,
-    ALBAÑIL;
+    ALBAÑIL,
+   CERRAJERO,
+   JARDINERO,
+   PINTOR;
+   
     
 }

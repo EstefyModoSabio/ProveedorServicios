@@ -1,473 +1,234 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <script>
-$('#multi19').mdbRange({
-  single: {
-    active: true,
-    multi: {
-      active: true,
-      rangeLength: 3,
-      step: 10,
-      symbol: 'PLN'
-    }
-  }
-});
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="../css/listaProveedoresCss.css">
+    </head>
 
-$('#multi20').mdbRange({
-  single: {
-    active: true,
-    multi: {
-      active: true,
-      rangeLength: 4,
-      step: 2,
-      symbol: '@'
-    }
-  }
-});
+    <body>
 
-$('#multi21').mdbRange({
-  single: {
-    active: true,
-    multi: {
-      active: true,
-      rangeLength: 5,
-      value: {
-        step: 5,
-        symbol: '$'
-      }
-    }
-  }
-});
+        <header th:replace="/fragments/header :: header" />
 
-    </script>
-</head>
-</head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
-
-<style>
-    body{margin-top:20px;
-background-color:#eee;
-}
-.project-list-table {
-    border-collapse: separate;
-    border-spacing: 0 12px
-}
-
-.project-list-table tr {
-    background-color: #fff
-}
-
-.table-nowrap td, .table-nowrap th {
-    white-space: nowrap;
-}
-.table-borderless>:not(caption)>*>* {
-    border-bottom-width: 0;
-}
-.table>:not(caption)>*>* {
-    padding: 0.75rem 0.75rem;
-    background-color: var(--bs-table-bg);
-    border-bottom-width: 1px;
-    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
-}
-
-.avatar-sm {
-    height: 2rem;
-    width: 2rem;
-}
-.rounded-circle {
-    border-radius: 50%!important;
-}
-.me-2 {
-    margin-right: 0.5rem!important;
-}
-img, svg {
-    vertical-align: middle;
-}
-
-a {
-    color: #3b76e1;
-    text-decoration: none;
-}
-
-.badge-soft-danger {
-    color: #f56e6e !important;
-    background-color: rgba(245,110,110,.1);
-}
-.badge-soft-success {
-    color: #63ad6f !important;
-    background-color: rgba(99,173,111,.1);
-}
-
-.badge-soft-primary {
-    color: #3b76e1 !important;
-    background-color: rgba(59,118,225,.1);
-}
-
-.badge-soft-info {
-    color: #57c9eb !important;
-    background-color: rgba(87,201,235,.1);
-}
-
-.avatar-title {
-    align-items: center;
-    background-color: #3b76e1;
-    color: #fff;
-    display: flex;
-    font-weight: 500;
-    height: 100%;
-    justify-content: center;
-    width: 100%;
-}
-.bg-soft-primary {
-    background-color: rgba(59,118,225,.25)!important;
-}
-</style>
-<body>
-
-  
-    <header class="p-3 text-bg-dark">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-              <img src="/src/main/resources/static/img/logo-no-background.png" class="bi me-2" width="100%" height="40" role="img" aria-label="Bootstrap"></img>
-            </a>
-    
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="/" class="nav-link px-2 text-secondary">Inicio</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">Tu Perfil</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">Profesionales</a></li>
-
-              <!--
-              <li><a href="#" class="nav-link px-2 text-white">Registrate</a></li>
-              -->
-
-              <li><a href="#" class="nav-link px-2 text-white">Sobre Nosotros</a></li>
-            </ul>
-
-            <!---
-    
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-              <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-            </form>
-
-          -->
-    
-          <div class="text-end">
-            <button type="button" class="btn btn-outline-light me-2">Login como usuario</button>
-            <button type="button" class="btn btn-outline-light me-2">Login como proveedor</button>
-            <button type="button" class="btn btn-warning">Crear cuanta</button>
-          </div>
-          </div>
+        <div class="container mt-5" style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Perfil administrador</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Proveedores</li>
+            </ol>
         </div>
-      </header>
 
-      <div class="container mt-5" style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Perfil administrador</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Proveedores</li>
-        </ol>
-      </div>
-
-     
         <div class="container col-xl-10 col-xxl-8 px-4 py-5">
             <div class="row align-items-center g-lg-5 py-5">
-              <div class="col-lg-7 text-center text-lg-start">
-                <h1 class="display-4 fw-bold lh-1 mb-3">Lista de proveedores</h1>
-                <p class="col-lg-10 fs-4">Aqui puedes ver una lista detallada de los proveedores. A demas, podes hacer modificaciones o eliminar perfiles</p>
-              </div>
-              <div class="col-md-10 mx-auto col-lg-5">
-                
-              </div>
-            </div>
-          </div>
-          
-      <main>
-
-
-
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <h5 class="card-title">Proveedores <span class="text-muted fw-normal ms-2">(834)</span></h5>
-                    </div>
+                <div class="col-lg-7 text-center text-lg-start">
+                    <h1 class="display-4 fw-bold lh-1 mb-3">Lista de proveedores</h1>
+                    <p class="col-lg-10 fs-4">Aqui puedes ver una lista detallada de los proveedores. A demas, podes hacer modificaciones o eliminar perfiles</p>
                 </div>
-                <div class="col-md-6">
-                    <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
-                        
-                        <div>
-                            <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Crear un nuevo perfil</a>
-                        </div>
-                      
-                       
-                        <div class="dropdown">
-                            <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ordenar</a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Nombre</a></li>
-                                <li><a class="dropdown-item" href="#">Calificacion</a></li>
-                                <li><a class="dropdown-item" href="#">Cantidad de trabajos</a></li>
-                            </ul>
-                        </div>
-                        <div class="dropdown">
-                            <a href="#collapseExample" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" role="button"  class="btn btn-primary dropdown-toggle"> flitrar</a>
-                            <div class="collapse" id="collapseExample">
-                                <div class="form-check">
-                                    <h5>Actividad</h5>
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                     Albañil
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                      Plomero
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                      Electricista
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                      Mecanico
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                      Jardinero
-                                    </label>
-                                  </div>
-                                  <form class="d-flex">
-                                    <input class="form-control me-2" type="search" placeholder="Nombre" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Filtrar</button>
-                                  </form>
-                                  <form class="d-flex">
-                                    <input class="form-control me-2" type="search" placeholder="ID" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Filtrar</button>
-                                  </form>
-                                  <label for="customRange2" class="form-label">Example range</label>
-                                  <input type="range" class="form-range" min="0" max="5" id="customRange2">
-                              </div>
-                        </div>
-                    </div>
+                <div class="col-md-10 mx-auto col-lg-5">
+
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="">
-                        <div class="table-responsive">
-                            <table class="table project-list-table table-nowrap align-middle table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="ps-4" style="width: 50px;">
-                                            <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label></div>
-                                        </th>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Profesion</th>
-                                        <th scope="col">Calificacion</th>
-                                        <th scope="col">Trabajos realizados</th>
-                                        <th scope="col">Editar/Eliminar/Ver</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" class="ps-4">
-                                            <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
-                                        </th>
-                                        <th scope="row" th:text="${proveedor.id}">1</th>
-                                        <td scope="row" th:text="${proveedor.nombre}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" />Proveedor Ejemplo</td>
-                                        <td><span th:text="${proveedor.profesion}" class="badge badge-soft-success mb-0">Plomero</span></td>
-                                        <td th:text="${proveedor.calificacion}">5</td>
-                                        <td>125</td>
-                                        <td>
-                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item ">
-                                                    <a class="text-muted px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class='bx bx-show font-size-18'></i></a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="ps-4">
-                                            <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
-                                        </th>
-                                        <th scope="row" th:text="${proveedor.id}">1</th>
-                                        <td scope="row" th:text="${proveedor.nombre}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" />Proveedor Ejemplo</td>
-                                        <td><span th:text="${proveedor.profesion}" class="badge badge-soft-success mb-0">Plomero</span></td>
-                                        <td th:text="${proveedor.calificacion}">5</td>
-                                        <td>125</td>
-                                        <td>
-                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item ">
-                                                    <a class="text-muted px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class='bx bx-show font-size-18'></i></a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="ps-4">
-                                            <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
-                                        </th>
-                                        <th scope="row" th:text="${proveedor.id}">1</th>
-                                        <td scope="row" th:text="${proveedor.nombre}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" />Proveedor Ejemplo</td>
-                                        <td><span th:text="${proveedor.profesion}" class="badge badge-soft-success mb-0">Plomero</span></td>
-                                        <td th:text="${proveedor.calificacion}">5</td>
-                                        <td>125</td>
-                                        <td>
-                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item ">
-                                                    <a class="text-muted px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class='bx bx-show font-size-18'></i></a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="ps-4">
-                                            <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
-                                        </th>
-                                        <th scope="row" th:text="${proveedor.id}">1</th>
-                                        <td scope="row" th:text="${proveedor.nombre}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" />Proveedor Ejemplo</td>
-                                        <td><span th:text="${proveedor.profesion}" class="badge badge-soft-success mb-0">Plomero</span></td>
-                                        <td th:text="${proveedor.calificacion}">5</td>
-                                        <td>125</td>
-                                        <td>
-                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item ">
-                                                    <a class="text-muted px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class='bx bx-show font-size-18'></i></a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="ps-4">
-                                            <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
-                                        </th>
-                                        <th scope="row" th:text="${proveedor.id}">1</th>
-                                        <td scope="row" th:text="${proveedor.nombre}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" />Proveedor Ejemplo</td>
-                                        <td><span th:text="${proveedor.profesion}" class="badge badge-soft-success mb-0">Plomero</span></td>
-                                        <td th:text="${proveedor.calificacion}">5</td>
-                                        <td>125</td>
-                                        <td>
-                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item ">
-                                                    <a class="text-muted px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class='bx bx-show font-size-18'></i></a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
         </div>
-          <!-- <div class="container mt-5">
-        <table class="table">
-            <thead>
-              <tr class="table-dark">
-                <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-              
-                <th scope="col">Profesion</th>
-                <th scope="col">Ver/Eliminar</th>
-              </tr>
-            </thead>
-            <tbody th:each="proveedor : ${proveedores}">
-              <tr>
-                <th scope="row" th:text="${proveedor.id}">ejem</th>
-                <th scope="row" th:text="${proveedor.nombre}">rfhd</th>
-                <th scope="row" th:text="${proveedor.profesion}">hdf</th>
-                <th><a th:href="@{/modificar/__${proveedor.id}__}" href="."><i class="bi bi-pencil-fill"></i></a>
-                        <a th:href="@{/perfilProveedor/__${proveedor.id}__}" href="."><i class="bi bi-eye-fill ms-2"></i></a>
-                        <a th:href="@{/eliminar/}"><i class="bi bi-trash-fill ms-2" href="."></i></a>
-                    </th>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </table>
-        </div> -->
-      </main>
 
-<div class="b-example-divider"></div>
+        <main>
 
-<div class="p-3 text-bg-dark">
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h5 class="card-title">Proveedores <span class="text-muted fw-normal ms-2">(834)</span></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                            <div>
+                                <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Crear un nuevo perfil</a>
+                            </div>
+                            <div class="dropdown">
+                                <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ordenar</a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#">Nombre</a></li>
+                                    <li><a class="dropdown-item" href="#">Calificacion</a></li>
+                                    <li><a class="dropdown-item" href="#">Cantidad de trabajos</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <a href="#offcanvasExample" data-bs-toggle="offcanvas" a aria-controls="offcanvasExample" role="button"  class="btn btn-primary"> flitrar</a>
+                                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtros</h5>
+                                        <a type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></a>
+                                    </div>
+                                    <ul class="offcanvas-body">
+                                        <li class="form-check">
+                                            <h5>Actividad</h5>
+                                            <input class="check-box-filter form-check-input" type="checkbox" value="" id="flexCheckDefault " checked>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                <span>Albañil</span>
+                                            </label>
+                                        </li>
+                                        <li class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Plomero
+                                            </label>
+                                        </li>
+                                        <li class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Electricista
+                                            </label>
+                                        </li>
+                                        <li class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Mecanico
+                                            </label>
+                                        </li>
+                                        <li class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Jardinero
+                                            </label>
+                                        </li>
 
-      <span class="nav-link px-2 text-secondary">&copy; 2023 Barrios Privados, Inc</span>
-    </div>
+                                        <div class="container">
+                                            <h5>Busqueda</h5>
+                                            <form class="d-flex m-3">
+                                                <input type="text" class="form-control me-2" name="search" id="search-name" placeholder="Search..." />
+                                                <!-- <input class="form-control me-2" id="search" name="search" type="text" placeholder="Nombre" aria-label="Search"> -->
+                                                <a class="btn btn-outline-success" data-bs-dismiss="offcanvas" type="button">Filtrar</a>
+                                            </form>
 
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-      <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
-    </ul>
-  </footer>
-</div>
+                                            <form class="d-flex m-3">
+                                                <input class="form-control me-2" type="text" name="search" id="search-id" placeholder="ID..." >
+                                                <a class="btn btn-outline-success" data-bs-dismiss="offcanvas" type="button">Filtrar</a>
+                                            </form>
+                                        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
-  </body>
-</body>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="">
+                            <div class="table-responsive">
+                                <table class="table project-list-table table-nowrap align-middle table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="ps-4" style="width: 50px;">
+                                                <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label></div>
+                                            </th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Profesion</th>
+                                            <th scope="col">Calificacion</th>
+                                            <th scope="col">Trabajos realizados</th>
+                                            <th scope="col"   >Editar/Eliminar/Ver</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody th:each="proveedor: ${proveedores}">
+                                        <!-- Borrar textContent de cada etiqueta para ser llenado con la base de datos desde el back -->
+                                        <tr >
+                                            <th scope="row" class="ps-4">
+                                                <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
+                                            </th>
+                                            <th scope="row" ><span th:text="${proveedor.id}">1</span></th>
+                                            <td scope="row" th:text="${proveedor.nombre}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" />Pablo Pereira</td>
+                                            <td><span th:text="${proveedor.profesion}" class="badge badge-soft-success mb-0">Plomero</span></td>
+                                            <td th:text="${proveedor.calificacion}">5</td>
+                                            <td>125</td>
+                                            <td>
+                                                <ul class="list-inline mb-0">
+                                                    <li class="list-inline-item">
+                                                        <!-- Colocar en esta etiqueta th la ruta para modificar el perfil -->
+                                                        <a th:href="@{}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <!-- Colocar en esta etiqueta th que elimina el perfil -->
+                                                        <a th:href="@{}"  data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item ">
+                                                        <!-- Colocar en esta etiqueta th la ruta hacia el perfil del proveedor -->
+                                                        <a th:href="@{}" class="text-muted px-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class='bx bx-show font-size-18'></i></a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
 
 
-<!---footer--->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+
+        </main>
+
+        <div class="b-example-divider"></div>
+
+        <div class="p-3 text-bg-dark">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+
+                    <span class="nav-link px-2 text-secondary">&copy; 2023 Barrios Privados, Inc</span>
+                </div>
+
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+                </ul>
+            </footer>
+        </div>
+
+        <script>
+            const searchInput = document.getElementById("search-name");
+            const rows = document.querySelectorAll("tbody tr");
+
+            searchInput.addEventListener("keyup", function (event) {
+            const q = event.target.value.toLowerCase();
+            rows.forEach((row) => {
+            row.querySelector("td").textContent.toLowerCase().startsWith(q)
+            ? (row.style.display = "table-row")
+            : (row.style.display = "none");
+            });
+            });
+
+            const searchInputId = document.getElementById("search-id");
+            const rows1 = document.querySelectorAll("tbody tr");
+
+            searchInputId.addEventListener("keyup", function (event) {
+            const d = event.target.value.toLowerCase();
+
+            rows1.forEach((row1) => {
+            row1.querySelector("span").textContent.toLowerCase().startsWith(d)
+            ? (row1.style.display = "table-row")
+            : (row1.style.display = "none");
+
+            });
+            });
+
+            const checkBoxFilter = document.getElementById("flexCheckDefault").checked
+            console.log(checkBoxFilter)
+        </script>
+        <script src="./listaproveedro.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+
+
+    </body>
+
+    <!---footer--->
 
 </html>

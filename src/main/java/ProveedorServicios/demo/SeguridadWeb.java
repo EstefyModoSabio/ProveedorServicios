@@ -3,12 +3,14 @@ package ProveedorServicios.demo;
 import ProveedorServicios.demo.Servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
 @EnableWebSecurity
@@ -30,7 +32,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/*").hasRole("ADMINISTRADOR")
-                .antMatchers("/css/*", "/js/*", "/img/*", "/**")
+                .antMatchers("/css/*", "/js/*", "/img/*", "/static/", "/**")
                 .permitAll()
                 .and().formLogin()
                 .loginPage("/login")
@@ -45,6 +47,20 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and().csrf() // Cross-Site Request Forgery
                 .disable();
+    }
+
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(
+                "/webjars/**",
+                "/img/**",
+                "/css/**",
+                "/js/**")
+                .addResourceLocations(
+                        "classpath:/META-INF/resources/webjars/",
+                        "classpath:/static/img/",
+                        "classpath:/img/",
+                        "classpath:/static/css/",
+                        "classpath:/static/js/");
     }
 
 }

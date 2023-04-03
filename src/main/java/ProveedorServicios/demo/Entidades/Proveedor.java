@@ -41,6 +41,15 @@ public class Proveedor {
     public Proveedor() {
     }
 
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    
     public String getDni() {
         return dni;
     }
