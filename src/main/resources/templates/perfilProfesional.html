@@ -1,0 +1,565 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PERFIL PROFESIONAL</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+        <style>
+            .buttons label:hover a {
+
+                font-size: 30px;
+                color: #fd4;
+                padding: px;
+                transition: all 0.2s ease;
+            }
+
+            .buttons {
+                min-width: 300px;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .buttons a {
+                text-decoration: none;
+                font-size: 20px;
+                width: 32px;
+                height: 32px;
+                line-height: 30px;
+                text-align: center;
+                background: #314652;
+                color: #f1f1f1;
+                border-radius: 50%;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+                transition: all .4s ease-in-out;
+            }
+
+            .buttons a:hover {
+                background: rgb(12, 36, 173);
+                transform: scale(1.5);
+            }
+
+            .popup img {
+                width: unset;
+                cursor: pointer;
+                outline: none;
+            }
+        </style>
+    </head>
+
+    <body class="text-bg-dark">
+
+        <header th:replace="/fragments/header :: header" >
+
+            <!--- ACA VA EL BUSCADOR!!!!
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+        </form>
+
+    <div class="text-end">
+      <button type="button" class="btn btn-outline-light me-2">Acceso</button>
+      <button type="button" class="btn btn-warning">Registrate</button>
+    </div>
+     </div>
+    </div>
+            -->
+
+            <!--BOTON CARA PERFIL-->
+
+            <div class="dropdown text-end">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+
+                    <img
+                        src="data:image/png;base64,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"
+                        alt="mdo" class="img-fluid rounded-circle" width="50" height="30">
+
+                </a>
+            </div>
+        </header>
+
+
+        <hr class="featurette-divider">
+
+        <!--TERCER COMPONENTE DATOS USUARIO-->
+
+
+        <div class="container justify-content">
+            <div align="center">
+                <div class="col-6">
+                    <div href=""><img
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANsAAADmCAMAAABruQABAAABs1BMVEX////40yb40yfhlyIAAADtVGD2LROBHgjglSL41CfgkyL51ib91yfnmyP+2CfimCL/LxSoFyn/3Cb/3iB0CwrprCL5+fnrniTi4uL/4CD19fXq6urz0h7V1dbrsyL0ySTvvSMZAADloiG7vL6WgAAoAADryx2ljQDb3N34WGQAABmocRnExMRHOQB5e4KVl5xkVQA5LADOshl9bA9PUl3qryKDg4MlJSVbW1uvr69xcXFpaWngwRxtXAALCQCdhgBXSACen6RfQA5AMwCPWgC9oxePexGtcg5JKAAAAA1SAADNrxxdYGotJwQdGQFUVAqKEyIeAADdJRFFSFIUHDIvAADNiR16TxM7AACHWxRzTREcHBw6OjqxlwgnLkNRRwlsUQA2DgApMTk4GQAWJTEqHQA0OUkAAiiIipIAGCZOLABJSkoZHzAADgAMLzC5GwCcEwCyFw1/AAlhBgl3EB1NABSYFSXLOUdmCQkuNQaOHTLNHxCoNUdBRQmEJDlXCSg1ABwAGQASKwRsHC8sABqkeRMxHAigTBrWkDmyYRONMxnAeDadTCmCHQA/DwQAFBVIIQAuKclLAAAd0UlEQVR4nN1dj38Tx7HnThO4051Ozh5Gln/gH5IlY8uWLBmDzBnb2JIB2UmJQcZuhBsI4EB5JCFtSNOkTdrX5rXlPf7kt7v3a+9u9cOy9aOdT4J+ne/2ezM7Mzs7M3fuXL/QMAz1eggdo1/DSq+H0Cl6CQCXej2IztAGhgaZXo+iIzRDoMFyr4fREbpGsX3a62F0grJgUq/H0QEasaD9J1qB6za2/zxlMmZDg2Kvh3Lm9KmDLdvroZw1ZRxocKPXYzlruuZiu97rsZwxubPtzA3ccrY4NtJLR+4lg+2MDdyKJQ3FHtmWIegctkvuiVcSI2d77lZouYPYziXYc19b7rb5hE5iO3fDe3q40U14xc5i8906Kp1dg/d4t7PYxoLg8FqqK3NvBuLpjmJzlhheepY4+yv5aSGp68bNTmJzHXGGRkuLkB3uwMVYgpSioNHdTmJj/R6b4ihurMJKR81eYlMXRVFTdjuJbSQAbVHHd1QfLcPSTCcuaNJSTRUEQVRHLbG82ZGrBPTJEcIXFVUdrcHeWEcuSfyGUYGSapgX7VDAxGdoYBOJ5KqiglAadjqjNBPr5AaSe6iV6EU7tQ7wKcubyLyl+NIE3UIn3GlTJCnpq53EZnvNNiH7shRdEjbO/opgnx//r5Brdi5q7gWniM6VMSGlMHvW9i4zb98/URSoVHYwpuDxLFMuMpFcXE8dPTpbpbKQVt2bJ6D5zsZLWBtuyKawWDKDlVk8f7ZKBQwLGb2Cmu9wnIvhXMWZ547gaPraGcbsZ4BqSdk+PzqCznp57pxb01xUzqxAo+tnFiDdKGhUKhy5qECnDKlFDrhVTeCQqpfOKtK2RyRDZM6tdTxmbtu5XWTfUJZ5oojQ6tmwDhSBmdGYUp3fXLQ9lAmFxzhMegUWTn+ZMeL5sGzDyuT0Z216VRNbdWpckZ3Z4Cg0/K82uj57aoWZTWreE6u1357F6JuQuSqYi4QHRdmjTaz3ooBXy6fV13t5nyLWkjtnMvomdIlsP9yKhSRpQmE55qpMZJxWpYDiPaWg/eb4bEbfjIi6DEVDoXB0XPFwzR6QqszfP41cziwi3ym1z7q1RVUkQhkKhSQsmArrnjjzTy+cxh4Vy5rA6klRGO+0eXNpCCCKGUfQXVZY58vRLnrtFI7EQkkVPOdTrkIXw9rXoUo4ZwqmLARIRPn2vdtHhlfURaXa1a38ImzFLNZNiYrok0n8n2a0DQ50wSPn8vj24zMdfDMaefxEMllHBDPIOlFNtWnGhzZ9qkS+vNXtfK4szJmsw4I5YZpyz7RTR9tbGSQKmvdEytRhB1b2jWno89sO67CjEmAdBteOWB6nvZZbFiPTPcjAcFkXIhrTaw4wuJTtogyNZRKUMjNNHfqlvL3mNk+kTEjQ6SA2j0b2pqsewWRnHAWXSCzvmU7o01xukb6ZXVooNojaPk952a9MdVdNupSA/ZBfMB2daRQANlfL6VI+hfS4jv9DqXwpXSYgnx3XscegicztwSIpzXXFm+TRMWxFHI0ps6xTK2UDI0KaplExwySoqoYQRonya/OwwzHwQ08Rc3+ISEb2u65KHBrZge2YZcpDWDBdw6silUbCGPsn2l9oSFdKOVjwS+dYTiPMcuabMhWb7prHxaGZPRedJZh+Wy54NY0JUNOVtH8zL1H2yKQ8Ho72OKN3bA/7z5FoXVPOqhgmGIHhxfOLz1l02TVPNEa5Gqp21yvh0MwOHFRjBJ7k9zH90RV2wS6KFJ1rwI5rrHkTZSmydQZhitPScHb2wZYUw4olPJFXOSs7k1NBUvUKLNme/o4n+ilPhCO3u7AD3QLNZL+Y3N+uVtfZlbPfpNuahWEfCd1aynCpojI/KlNSpJsLnMY0Ulz+/JXOZxpvmW4RSs0/ohiIW+IcRjRJ9U6vIbF0J8/uVHg55gPLvLWCSEuG6twHURnsj+nm0KM0qs8fHkTrS2SQVdGSE+QiFiAcin3WR6nKCzndjX+JPlEUbWUStH94yYfWn5m6xPpVmQhHpT5Kn58BwjVRZCLejJchuFh4QaR48vlSSXWUDNEkc0u9RuQS2afwxmNPQKJegrTjT2JNEoq96J8M87F5xFUZDhd57HIPJEGkvGbtvGFNEg31ZO3Gpz3DC8sXdW7OOa0ChuV1ieFQZHuv14gcGisg0S+R9TW/j3mmRtFKYFB1olyVQrHb/SOSL0frgDjBtEMmOBmzDWvJvqnqy5Bwt1cQWa1fTz16XrChq5VVgbItstU/NQ+PrFiHKLbJM5M0eofCoVCsexsBzchMeaFQZNWKJAg8PjF8FXzzzWYgYVt0+4teQ3LotyULjYyMUiFXqGiNVqmNibLtfd9okowZohIFNXVk7fqbGq9uaKH+D3jhFor2KnjHoT1r48zKeVwZy7yk+VGtYAnILMbWRwZgGKzNJXXXyZx7nPPvgbZIdOXWP2zbsNwtLUnZRoNzRUgxMT17KvH45P+kRGPT/RFMIPRbM4ojInOuUe1dhJo/+atFvuXvdXnXrRENAXUDRdnKMKZW9xpJ/mo230TOD6LST7XBxwUzaKpWrOyhl8XiNYB0e3wT0WIflZhilUhdEJLtyBAbO6lrA4TAJ1HL9U8sYcPWiKLGQvtIO7nLRUkr926Hw09gyBYKrcBgq3mxcX0u7lttrW9kMpuLO6Fk0YW22o55o0nQarpfsI0AvKpY6TzYL7Hrn8pIdOZXYKnD8NHzYvlttX7B9l+vB15DyVIbooqSxDVZNayQl4NE5GEhAohUUSOOtSOaYt/wbfnuwPmB78EVK6SPjiJdFQW/JuEpFlktfwRws5BiN/G1ZH9gG4PzmAYuljXHDDOcoVErE1PK0NSATMrCLmRnxj4FKwhk6ZLV/vC44PUAAffJK6sKycscV840XgK+IGyaezjX2B+x59YX2zc37lJo5weIHaijIui/xDrkNN8P5EsKg9Rzuz+k+mIRYEokFcpmDhYyUsF9ELA8R5J0WrY3hNVKzxIvWHr55YCF7UszFYsZvXezCn+W/TaAumikAoy2GJi3ofeHWzJss+38wFcf+6oi1DWPvyGrwT1hldbuXVtetkoPrK+1+X6IcCWs2YbJxMZwRlstIFUlCTOahpBo5FXWhtF3JjbH/UTWH2t9Md2Wv3Swfe/nm6DeLJTyokHynDbJ2L8TmbieyUuDxbZryaRsPOo1LkLLXznYXgexpWCSjHnywcO7FzE9fGVtZLj2DX3EYLPWgNib7Iud4OuvffON1RaYKxc9dBdKrvtMD1NrvtUe+fs+sdwMtq/LAb7lfdguvsEOtDcii9ZdttlrQNQfAYUbLraHJdUX/1ArGNvbuw/uTU5OTpti+RaOUhojkxhczoVmKdL+sNzsfANfWqeMVyrTdyfhwZtvfvWrX31zdxqm35BJB2vmboadbaFXCOvmS04SgFrqj13urGO6v/rB3qp2Fy9rAN986NI3cO8tZt29V+kUQqhmlpXSIn+EdMvTJhls5f5YBCTe2timS67LZbsXyd996KU3QCTzzTQszoPtf5oZloxZR/P9EQgamrSwff8KsbjoAlorf+PD9uHv4QFVKpMFA8kOgxlXTSSWu0928C2fawAstjFjtLB9++0HlL410U0+oCplVHOP9M1To19yuEwjMPDmY6eS0h2zVvjmQwsYg46I5fQqElmusdNUrfRLdkLx64HzA+fvfqdZU4blglb4wwce+tYUy7dvzbnmrlvdF7FfvJJzZHHyyfdfY2/JmTYMOK38xw98RMD97uGD1QYJbVqhHxY4lOC7HwqG7gZJGHZwsH1AGedsOgZisaqqopzP47o0kylmjxcWlvaudznSkE3GEZusynJg7Q8BbEQsyQKbyzdNy9dKIrN4G84c790B2MwVkmvpWu2oy4ZvCJAn0455r6V/vMJh3O9vMr00GB9NSxVg8s1dsONAM8f3Yb5cMpCOCZt3FH/awR5FXHpU8Wp/l9TSX4LYPvjwTonbtgCl4eInA5ioeRveeD6ZzCMdOVUh+Pxd9zOLOTuvxB/gUit/CmK78ocfnNYr7PFaDr4fME3lJVItUjDiyFS+Vmya7Fs+7rZVp3tvARJJ65E/c/jmxPq8U+2Hh/aCAi7tQBoh1X9WNf9RutupQgtJza/uLGOXggC2K39OauyBFtfQx27g5Q4kEfKoXMvwlY7ipS73Ix6BuoFJCED743c806aVHzjQPgFsUnhlEmqprOupLnNuJ+2GQTy3G/30rQ/bt5CS/SqShinPO/T6Y92eYYLnRVSRmlrvctNeM0mB4x9qOb/xJjrSr3LwcT9/77CNxCZE5nf2jKKavt/tlMolp/zJZ7yTXiNw5U8FnkSqNXeynR+4x9kQsQmvf7odlR0BxYmrMmPHivIOi+3KX35AHHYI2k+fuCL5CXiOYc5Gjkytd8c1GUpkV3aePdvbWcg+Xy0ZKtL8NxzfZmbCXfnxZ36vodJDhm0XA+EylsHPu9Hvo7gDsE4KZfP5Sqm2Vl4H2C2URKR6J1LB9bqu/PgTp8idHJRzA0qYbSnZ97v7F1rlWceBDS/AYppWyiIa6yexnPhovrwJm2kRMdzDCtAVyJ9Hg5lrFNsrVyQH7jZiW77Wca/rGFaNuO03iG58ihTIrkMuj9ywP/rB1CZXPvjrx4jlAcsOcJXkV7TtjJ+zJjIB7S51WJOMzB6ldNWTby04IDV9NAmbFSd4LKfgxytXrnzwI6zp9ZajqXuM3fZ3C3IuouVT8U7v8M9ALe7tZehlgoD0GhwZdqiHpMH+6a+wmvKEwTzvGL5hbyv4uykA5eezk/MvOwptCPKIP0SrYIpWNyfx8tOKPqqoUqooOmdj0eGIYwLuFeoxF09cvDoodlYk7+Q1kTFkzNKGXZ6i1OJuyi73wurGZ628800rf20y7l4O+c7oHIZ27+zsZDcSmbGRjsUVlpJ2yQ2zsvKM1GSeGi+TkijRVDNe8RKYA+kH7acvB84PfAIFneNGmkeUb+ZL6WR5dZ12nLj/bGfhuFjEQM8QWgZaTD8TBb0ESU0L1giIQR9fTf388PVrSPKLcAW6kWcgy9TEdTSayudr6WRhdf4p7asxdiYr1kdO0N8RHY4PZX7QjHVYTRqBQnbvJ/qNHK8B0I0c0fuD+UlEu2lkhhXoP4piWVWdWNVaYR5gKXvahxwMtco2OiRZHy1BKaDTg9pCRTW6LVePUGHd1THOlLCmPUapx1P5tRwBeIpNkmyBWcxwJxqrWbDCTB6xPTucI0TPJ83YxEyrez5lfA40zhXsF3NbhThGleQ83F9ItCehO14uiHX1ukXa6rqZMBMkB56mlqGgMHup3sNl+eo2GI0zjihCUVQwQN1Ir8Pz4zb499xJ3RU8r7z5Rkk5gsFxRWHbmngshqqlytjQ64I3e9Q9kTIRrUJaY/jEv5D1V3guWvieZU8YywTmTK0RtuLV6OAExSf4OaiifA67prpS72yyOBiWIFfXW+OORcR3TNfzyUVYyJxgkW43rGbuoug/v8eWqSh+dBiRwuHQ1NXLE+Mi0/tQ1cTaEZRHdbubi/9soqxMSFLkbx9pvvN6DKns/9qyMvjKo6UcLBVbhTfraPS6foaH1Pyi1fYwJGGA4XDULHAmB1aShdpoHFl3KlDfiKVLnAqHYrdIsjrvxgUgeY+ge5u6XlmFvdbg+UvTm2ETUmCMh0MWSeFB5DRTFZGOkOD1WNgPsnKZ1PcdgGdlUEc4A/fFxiwTeJh7LeiW47InN6SuTDpfaiVAl8MWsug426VWZPokedQ/fVHGMdNCkTnIgBKw5T40wRGJ7LzRdFTbhIVm6ThjkyfL+FeN/NO1+OWwJFFk9Rr8BgkzTcLQqpDJ7PIu2cz4eA4ly65UEh41SaSazasN7mJANRtwVEghfWJq6qqNzH/DOUoIW+so4TXW/kWniInPLu5PgQOpatFLm5BtNPM2yBMZ5JZrZFUY1UmxNnb9fDyrWxtNGpkPEqaFoiHSLXDPqqvzNFhqnWvMn2hxIwfHDdCRmT2OdTmxV9hgCcyM8b4QZBpaW9ecfmP+332frbdY8YcIslA0Mk329K0WBAJp6iyyN6XuhUVnyvnMhajqqdUG3RUTN3WizKXI1ODliQkWpHuLZJlaajVPilfqtHyqd/NlovgZaEO0IQqZf2Hs4HjANWYTV50TdIv1H2yyVx6UqLkyDZYU9YBUCKzxicGpqXENJQuKMcrC4JkizzSh1tqEFjJvcGKTRpmVqIQV7VXBL5gN5htfI2j5RkF3+O9IiCEbZNjk5OXBqRBha3V/tZI/QkpDheZfppqKn1BEsvbZjunKQzaNJO3a1pRrAY3GUGNo50ZgLhbikAkS/xOKxqqHUEjvOs+bEfjz0Tv1sCibOiRElb+lsJ+ZqmTCwkz6XDY7I+cK9otmNNkqGbK79PIpEqu+gEJKR/G8wccSnPumtY7aHkxk2+nWb1aNK4OS49vQTvH1T9zgQs24Rmj48XspwkcXjUTm7kESO8DEprRsK7BwyuOSPf7YlpPTO2SuSsl0C/nQnZyaco3SMmxFfeii0WgkFt2+RRJYWT8xIPn82y2LNrRo5PALZ+VcNCvixTB7KdpunBPXdhIaAlegpBrQ0pJuZAX2q5FYxKZYTKpuH9yG3WQq3k79rCjYnIlInzEZvQvmzseEBxtVKoKfdc0u2io0gi77GJ7cvrV/MDd3sH/rb0C3qPCaRQ3cNdFzXc7tFmhXP0eLsMbVjKvJl6WQj2iPUu853CvyLnQCaISOC/naWrKwurpaXisZGJemijzT2pyNylXLYOOp5lmOgOFB7kEXYVsDN3OeMbQT5eVDHiFz8w3RsDibHOrVUo1tgGjLXCT04nNPkGrGjBkqHGi2UmFZVv8KJ4U2ZrpD5gT2J70GGNfwvpqTLbbt7xNeXGcsNw/doKC0IhcY2skisws5JPrvUnBu1TGq7DuFsi0SPQyo6BWaQ6T4VQmDTvK0Bq4zsTG0E8YsfQ08Tq4cHWxTxJfZ5jwJ7T5VJaQxUl3iNlP3UBvQMk5Az+M6BcTeL5CB2UCazESkW7NBu3rJzI/lqhJGMM3WwPXmWxvQzq1Ym2V1kHGxiiIHO2l8dMB9fN2YmXYq1xVJl3XMhX1qTDXunDiI7uxinCB2YQP2kHw5cvPFJC+YQVf5HlUSifCcPSk8UdcLU1Mnr6TIQDBsyNWHPHPqUTCYb1Pj3EdZ7RBVQvlqUWz/xZwU48ALT/GCsEQgU78++dbHTkHzDbhtUhRd4XqxszSzy10EkODQdfhsqxoLsI8+jShIbUE7ZxYZ8uaP4Ocjz5Z7bjKJ0XLszzBRJewiwOz9lFm4A4fbIT/7woOK7L+wmrrZBrTESXYZOWTvEFq3l2tbrQ1oZxEQmbN7Pw1t7MH7raoXXjjCWAOzwQ/3ljWlpTKbVdjifBM8hzLOmFrh5TJlc55FQDTKeruXEisA+9usciEqhZUMDK2dnPtLzbb7WuAc814tmdiWF4pjbgBxh2ZlKvYiILLvtxMzeC3yYo5hX/gqM+nahHaueBMFp1ZgzEEfq44tV60ctJUX5XmY3clmqCjdIT3fHcuNFQknbjpc3IF7B45yCU/JsmVsVbHNNNK9Nd7Oe12V2UyXamlzJm0cxoR4qpRcB9hbKJqOj2Irkvf1SpAyy7Nwa1uyWvxbxgBDa6+Q2tJgdfRiXT55XBj2CC1tlrwVb0fCl3VSozKaX8vl2EVApGGnTaJcnpjKRRqXTwPt3IYZEW3mP/J/sNExX2trZhxhDGJYrMjesaohnS6hbMsdaSphiQXAtiEaIRpFFtt+zvHjdP1QeHMK/qm2ZpbzjWBsISlE3ENzQSjbi4DIVit10US53N6qTiBhst1sxBHgK4yWfC7e8Ta2YZCipmfvhCZMVRKVWrVURLlA+Wnbac3Yhz29p8Xj2zmoWurO+UmhIhm7dZLBji20n0N63+wu0MZ8q3O8ZpeYfrFtmiryRBP6u6lKutdEdAha39xtjdSahe36XITxMQQ7nhDjLoE6QdlVjRHJVuabwCRZ8I5XSxa2hS1nk8iUS7oIcB3JjtNsg6KSNvlWsbRg9tDdAKNySRYB0VDXen5Yz3YQWp5vje0d9bnyVrl64gWzuUfkkjaR3u9awfdygZfx5xM3PzLO1+xbu2NJZtLe24sQHyM8OB6u40h2huqm8PPcRr6t8ExXyjgL2xDEyEo0iqfYJH0IFP4Qe9K1UsUxYP0tj1kOjjvAteCBFJzd/+4S/D1a/SXySzRysHA8S5fXse3PuwWNVpe2RK2Yd/sYbd2KBcHFX/7nn7F/RMOHmFlD2T24vd3Fijdfm4dGNqCZD+bCc/pNfvr2n3//ZxUDfGGCHS5e797jTTNPTxco8cB0MDp9Pa6/+de7f/3j61/etbdmPh3dWNP8k6wl18p3oP8IGYo0IrV8992FCxfe/etdL9pY+bs5BXjRHgvREcCnGyPnNh5eIPTuQg/aWJkPrmgw35geqHXmm8j8oXOQlp6+8HYaPr3+4IJJPcC207izfEu5ETJnB0E2gCB6+/B/LWz/131sdjZ2HZ+rYV5eQx8M7b65wNK1rkNLrKM6Y/crCP/YGenkgtbKkyy0t52t4uPRUrC8pmVqrGXUPLDY3nT9sT/DoPFr2QKc8B7ECiPf1osigrsMtrvdfiD5ueIq399qU/F7SCtMXnjnYHvY9ZZ45iM6/fOlme6oM9F8x9PWrw/f2ti63scKgjq+Ja3ftOCKkAKJkY2XMHkXs+/dg24/HGfmKfKEPVhmBPnCHsD/1XOgiHKkM8kw2Xt6eHGy260ME57p1toka30qqk5DgbHsp11v5ZEtO63i/UOu44OJYl0+BVnLtsvpepfGY2Zn6ixUo496+uCYY2Z900QvcjyVZsfjBWoP+7xmrXBC/cfLMiOtb6v5IHvcVJPokhYfMnjCZCHzb1APm6HO3KSeslWnwnGc3Lfcz42PF8Wetp83n8w0GI1MXR5XGiSy+wCJskxqr2S5SVFGT3t9k5WpTCo4QlI4NDghKLLsnz8uS8g7mTJZEMcxTYyPiwL9jL+RefNTK/TwUX0kyOVkjknhcJB97nSksMZJgY5Zr2OSFIpOkcIdsyjaz7dyLx9D+LyisfnspNSSsI9OQFryJ5PKP/oZw6JlR5IvsVOyCnes+8La8t72n88A8ufq43ESVlyllWIilj5aTBWlPGpIWKyvYngMOG29p4+y2ClMBIcsOYViptz5WdUAXtQpYRDJrkBvnx98v8CtEGuXJKtAg4JL3e8ptHOXZvcbVYi1QeEpyzvT1rrREK4h7Typ1qkQa5MkaZxWMGi9flDTpeISwIG/QsxHpGDMS43BhUkOFkp2Pf7joZkdWC2h1Cocbkf8884GRHY7t6ukvOqQ0P7hAabGjJYkWuXaS02S2XtaQjpSFD21tgtP6XidArhQtbq9vbV/6/0kwOzjz0mrqRf7W1sHBxjfrVtSE3CD6GQ1XGdMiftHRhyZgR1FiUk0PSk6hxl0eOs2RjK7tHOcLSbGhszbP1NcfgnwZH+uKsVimJeNwUVKPXwQeWZ23ognreYGskhEkECrLt46PJh7UqyzOBlJZHdmCcItkrsZqYtQOoTPW+6icsY0vDdpoDLkDES2qJRxd5JRgWy8EXhprLjyGDP29sFcNRRESPRS9EDaPoSVXujJDKRHC1BWRtNHYKjy1TCLLVadbkXBDSWIjOJJaCO0qXqwHQ1hvJHQFtzoOroE5MuQjleOYH7NQFYDDpNj0vb+vRO0qh7JbKzYCOfoVF3E/HS67kwkYaXLkvk4B8l4DXZrKK5jX5nqeamKleL7v+0cJ06u3oaHMhuPF29h2j8gKfARa2EgYCVcbjsZtz1a3lRSH93MkzZ7yhTB9ALr+b1lNpf/xLRXteQyihdCZKGEsG0RtMpRaf1+NzXmBizCkVFJF9afAtxZupE9g86By7dDpmHASwFBx8DoCt5AScglucVwnaLhmeLK3sLxRuY0nPLRCrzfIhVDE4g0hxVJvxm1ApslVIC1XA+N3dnQ2MbKF5O/KRmaZjWdFlWlDLtG6uZ6ukF7mH8bGh7L7lxbT+YF0lSbdGQiQpkqw9rTrm8Kd4aGM9mlxUIpRZuGE3TlPMz7a73/nWlmYw9ytRRSVYKuVoD+eMDdmVFiBzbJs+Hio7s1bkncvzeNHT9/WqgZBqz/52HDNFI8XprNds4K/D/TNXoqxhSfdQAAAABJRU5ErkJggg=="
+                            alt="" class="img-fluid rounded-circle w-60">
+
+                        <div class="container justify-content">
+                            <p class="social-icon m-t-5 m-b-0">
+
+                            <div class="buttons">
+
+                                <a href="https://web.whatsapp.com/" class="fa fa-whatsapp" target="_blank"></a>
+                                <a href="https://www.linkedin.com/" class="fa fa-linkedin-square" target="_blank"></a>
+                                <a href="https://www.youtube.com/" class="fa fa-youtube" target="_blank"></a>
+                                <a href="https://www.facebook.com/" class="fa fa-facebook-square" target="_blank"></a>
+                                <a href="https://www.instagram.com/?hl=es" class="fa fa-instagram" target="_blank"></a>
+                                <a href="https://www.google.com/" class="fa fa-google-plus" target="_blank"></a>
+
+                            </div>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${nombre =! null}">
+                <p><strong>NOMBRE Y APELLIDO</strong></p>
+                <p class="text-secondary" th:text="${nombre}"></p>
+            </div>
+
+            <div th:if="${ profesion =! null}">
+                <p><strong>PROFESION</strong></p>
+                <p class="text-secondary" th:text="${profesion}"></p>
+            </div>
+
+            <div th:if="${ honorarios =! null}">
+                <strong>HONORARIOS POR HORA</strong>
+                <p class="text-secondary" th:text="${honorarios}"></p>
+            </div>
+
+
+            <div th:if="${ celular =! null}">
+                <p><strong>CELULAR</strong></p>
+                <p class="text-secondary" th:text="${celular}"></p>
+            </div>
+
+            <div th:if="${ direccion =! null}">
+                <p><strong>DIRECCION</strong></p>
+                <p class="text-secondary" th:text="${direccion}"></p>
+            </div>
+
+            <div th:if="${ correo =! null}">
+                <p><strong>CORREO ELECTRONICO</strong></p>
+                <p class="text-secondary" th:text="${correo}"></p>
+            </div>
+
+
+
+            <div th:if="${ calificacion =! null}">
+                <p><strong>CALIFICACION</strong></p>
+                <p class="text-secondary" th:text="${calificacion}"></p>
+
+
+                <div class="buttons">
+                    <label>
+                        <div th:if="${puntuacion=!null}">
+                            <a href="#" th:text="${puntuacion}"></a>
+                            <a href="#" class="fa fa-star" target="_blank"></a>
+                            <a href="#" class="fa fa-star" target="_blank"></a>
+                            <a href="#" class="fa fa-star" target="_blank"></a>
+                            <a href="#" class="fa fa-star" target="_blank"></a>
+                            <a href="#" class="fa fa-star" target="_blank"></a>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <br>
+
+            <div>
+                <button class="btn btn-outline-primary">CONTRATAR</button>
+                <button class="btn btn-outline-primary">VER MENSAJES</button>
+                <button class="btn btn-outline-primary">EDITAR DATOS</button>
+            </div>
+
+        </div>
+
+        <!--CUARTO COMPONENTE HISTORIAL DE TRABAJOS-->
+
+
+
+        <section class="text-bg-dark">
+
+            <div class="b-example-divider"></div>
+
+            <div class="container px-4 py-5">
+
+                <h2 class="pb-2 border-bottom">Mi Trabajo</h2>
+
+                <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+
+                    <div class="col d-flex flex-column align-items-start gap-2">
+
+                        <h3 class="fw-bold">Saludos!</h3>
+                        <p class="fw-bold" th:text="${textopresentacion}">Texto de Presentacion</p>
+                        <button class="btn btn-outline-primary" href="#">Editar</button>
+                    </div>
+
+                    <aside>
+
+                        <div class="col">
+                            <div class="row row-cols-1 row-cols-sm-2 g-4">
+
+                                <div class="col d-flex flex-column gap-2">
+                                    <div
+                                        class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                                        <svg class="bi" width="1em" height="1em">
+                                        <use xlink:href="#collection" />
+                                        </svg>
+                                    </div>
+
+                                    <div th:if="${nombretrabajo=!null}">
+                                        <h4 class="fw-semibold mb-0" th:text="${nombretrabajo}">Trabajo 1</h4>
+                                        <p class="fw-bold" th:text="${estado}">Estado:</p>
+                                        <p class="fw-bold" th:text="${fecha}">Fecha:</p>
+                                        <p class="fw-bold" th:text="${resenia}">Reseña:</p>
+                                        <button class="btn btn-outline-primary" href="#">Ver Detalles</button>
+                                    </div>
+                                </div>
+
+                                <div class="col d-flex flex-column gap-2">
+
+                                    <div
+                                        class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                                        <svg class="bi" width="1em" height="1em">
+                                        <use xlink:href="#gear-fill" />
+                                        </svg>
+                                    </div>
+
+                                    <div th:if="${nombretrabajo=!null}">
+                                        <h4 class="fw-semibold mb-0" th:text="${nombretrabajo}">Trabajo 2</h4>
+                                        <p class="fw-bold" th:text="${estado}">Estado:</p>
+                                        <p class="fw-bold" th:text="${fecha}">Fecha:</p>
+                                        <p class="fw-bold" th:text="${resenia}">Reseña:</p>
+                                        <button class="btn btn-outline-primary" href="#">Ver Detalles</button>
+                                    </div>
+
+                                </div>
+
+                                <div class="col d-flex flex-column gap-2">
+
+                                    <div
+                                        class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                                        <svg class="bi" width="1em" height="1em">
+                                        <use xlink:href="#speedometer" />
+                                        </svg>
+                                    </div>
+
+                                    <div th:if="${nombretrabajo=!null}">
+                                        <h4 class="fw-semibold mb-0" th:text="${nombretrabajo}">Trabajo 3</h4>
+                                        <p class="fw-bold" th:text="${estado}">Estado:</p>
+                                        <p class="fw-bold" th:text="${fecha}">Fecha:</p>
+                                        <p class="fw-bold" th:text="${resenia}">Reseña:</p>
+                                        <button class="btn btn-outline-primary" href="#">Ver Detalles</button>
+                                    </div>
+                                </div>
+
+                                <div class="col d-flex flex-column gap-2">
+                                    <div
+                                        class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+                                        <svg class="bi" width="1em" height="1em">
+                                        <use xlink:href="#table" />
+                                        </svg>
+                                    </div>
+
+                                    <div th:if="${nombretrabajo=!null}">
+                                        <h4 class="fw-semibold mb-0" th:text="${nombretrabajo}">Trabajo 4</h4>
+                                        <p class="fw-bold" th:text="${estado}">Estado:</p>
+                                        <p class="fw-bold" th:text="${fecha}">Fecha:</p>
+                                        <p class="fw-bold" th:text="${resenia}">Reseña:</p>
+                                        <button class="btn btn-outline-primary" href="#">Ver Detalles</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+        </aside>
+
+
+    </section>
+
+    <!--QUINTO COMPONENTE CARRUSEL DE IMAGENES-->
+
+
+
+    <div class="p-3 text-bg-dark">
+        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+
+            <div class="carousel-inner">
+
+                <!--SLIDE 1-->
+                <div class="carousel-item active">
+
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div
+                                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+
+                                    <strong class="d-inline-block mb-2 text-primary">Contrataciones</strong>
+
+                                    <div th:if="${ nombretrabajo =! null}" th:if="${ fecha =! null}"
+                                         th:if="${ descripcion =! null}">
+
+                                        <h3 class="mb-0" th:text="${nombretrabajo}"></h3>
+                                        <div class="mb-1 text-muted" th:text="${fecha}"></div>
+                                        <p class="card-text mb-auto" th:text="${descripcion}"></p>
+                                        <a href="#" class="stretched-link">Linkedin</a>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-auto d-none d-lg-block">
+
+
+                                    <img src="https://www.conclusion.com.ar/wp-content/uploads/2016/05/Alba%C3%B1iles.jpg"
+                                         width="300" height="250">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div
+                                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+
+                                    <strong class="d-inline-block mb-2 text-success">Contrataciones</strong>
+
+                                    <div th:if="${ nombretrabajo =! null}" th:if="${ fecha =! null}"
+                                         th:if="${ descripcion =! null}">
+
+                                        <h3 class="mb-0" th:text="${nombretrabajo}"></h3>
+                                        <div class="mb-1 text-muted" th:text="${fecha}"></div>
+                                        <p class="card-text mb-auto" th:text="${descripcion}"></p>
+                                        <a href="#" class="stretched-link">Linkedin</a>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-auto d-none d-lg-block">
+
+
+                                    <img src="https://www.portafolio.co/files/article_main/uploads/2016/02/10/56bb6349d34c6.jpeg"
+                                         width="300" height="250">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!--SLIDE 2-->
+                <div class="carousel-item active">
+
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div
+                                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+
+                                    <strong class="d-inline-block mb-2 text-primary">Contrataciones</strong>
+
+                                    <div th:if="${ nombretrabajo =! null}" th:if="${ fecha =! null}"
+                                         th:if="${ descripcion =! null}">
+
+                                        <h3 class="mb-0" th:text="${nombretrabajo}"></h3>
+                                        <div class="mb-1 text-muted" th:text="${fecha}"></div>
+                                        <p class="card-text mb-auto" th:text="${descripcion}"></p>
+                                        <a href="#" class="stretched-link">Linkedin</a>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-auto d-none d-lg-block">
+
+
+                                    <img src="https://www.construar.com.ar/wp-content/uploads/2021/05/10433.jpg"
+                                         width="300" height="250">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div
+                                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+
+                                    <strong class="d-inline-block mb-2 text-success">Contrataciones</strong>
+
+                                    <div th:if="${ nombretrabajo =! null}" th:if="${ fecha =! null}"
+                                         th:if="${ descripcion =! null}">
+
+                                        <h3 class="mb-0" th:text="${nombretrabajo}"></h3>
+                                        <div class="mb-1 text-muted" th:text="${fecha}"></div>
+                                        <p class="card-text mb-auto" th:text="${descripcion}"></p>
+                                        <a href="#" class="stretched-link">Linkedin</a>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-auto d-none d-lg-block">
+
+
+                                    <img src="https://previews.123rf.com/images/noneam/noneam1307/noneam130700086/21161135-la-construcci%C3%B3n-sin-terminar-de-construir.jpg"
+                                         width="300" height="250">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!--SLIDE 3-->
+
+                <div class="carousel-item active">
+
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div
+                                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+
+                                    <strong class="d-inline-block mb-2 text-primary">Contrataciones</strong>
+
+                                    <div th:if="${ nombretrabajo =! null}" th:if="${ fecha =! null}"
+                                         th:if="${ descripcion =! null}">
+
+                                        <h3 class="mb-0" th:text="${nombretrabajo}"></h3>
+                                        <div class="mb-1 text-muted" th:text="${fecha}"></div>
+                                        <p class="card-text mb-auto" th:text="${descripcion}"></p>
+                                        <a href="#" class="stretched-link">Linkedin</a>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-auto d-none d-lg-block">
+
+
+                                    <img src="https://previews.123rf.com/images/boonsom/boonsom1302/boonsom130200001/17615393-construcci%C3%B3n-y-obras-de-construcci%C3%B3n-en-curso.jpg"
+                                         width="300" height="250">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div
+                                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div class="col p-4 d-flex flex-column position-static">
+
+                                    <strong class="d-inline-block mb-2 text-success">Contrataciones</strong>
+
+                                    <div th:if="${ nombretrabajo =! null}" th:if="${ fecha =! null}"
+                                         th:if="${ descripcion =! null}">
+
+                                        <h3 class="mb-0" th:text="${nombretrabajo}"></h3>
+                                        <div class="mb-1 text-muted" th:text="${fecha}"></div>
+                                        <p class="card-text mb-auto" th:text="${descripcion}"></p>
+                                        <a href="#" class="stretched-link">Linkedin</a>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-auto d-none d-lg-block">
+
+
+                                    <img src="https://i0.wp.com/sinmordaza.com/wp-content/uploads/2020/05/SM-obras-privadas-040520.jpg?fit=512%2C341&ssl=1"
+                                         width="300" height="250">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <br>
+        <br>
+
+
+        <!--FOOTER-->
+
+
+        <div class="b-example-divider"></div>
+
+
+
+        <div class="text-bg-dark">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+
+                    <span class="nav-link px-2 text-secondary">&copy; 2023 Barrios Privados, Inc</span>
+                </div>
+
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#twitter" />
+                            </svg></a></li>
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#instagram" />
+                            </svg></a></li>
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
+                            <use xlink:href="#facebook" />
+                            </svg></a></li>
+                </ul>
+            </footer>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+                integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

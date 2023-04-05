@@ -1,4 +1,4 @@
-<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +26,7 @@
             <div class="row align-items-center g-lg-5 py-5">
                 <div class="col-lg-7 text-center text-lg-start">
                     <h1 class="display-4 fw-bold lh-1 mb-3">Lista de proveedores</h1>
-                    <p class="col-lg-10 fs-4">Aqui puedes ver una lista detallada de los proveedores. A demas, podes hacer modificaciones o eliminar perfiles</p>
+                    <p class="col-lg-10 fs-4">Aqui puedes ver una lista detallada de los proveedores</p>
                 </div>
                 <div class="col-md-10 mx-auto col-lg-5">
 
@@ -40,22 +40,34 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <h5 class="card-title">Proveedores <span class="text-muted fw-normal ms-2">(834)</span></h5>
+                            <h5 class="card-title">Proveedores</h5>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
-                            <div>
-                                <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Crear un nuevo perfil</a>
-                            </div>
                             <div class="dropdown">
                                 <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ordenar</a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">Nombre</a></li>
-                                    <li><a class="dropdown-item" href="#">Calificacion</a></li>
-                                    <li><a class="dropdown-item" href="#">Cantidad de trabajos</a></li>
+                                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                                        <div class="offcanvas-header">
+                                            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtros</h5>
+                                            <a type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></a>
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            <div class="form-group my-3">
+                                                <p>Seleccione la Profesión</p>
+                                                <form method="GET" th:action="@{/proveedor/busqueda/__${profesion}__}" >
+                                                    <select name="profesion" id="profesion" value="profesion"  >
+                                                        <option th:each="proveedoresFiltro : ${proveedoresFiltro}" th:text="${proveedoresFiltro}"/>
+                                                    </select>
+                                                    <button type="submit">Filtrar Busqueda</button>
+                                                </form>
+                                            </div>
+                                        </div> 
+                                    </div>
                                 </ul>
                             </div>
+
                             <div class="dropdown">
                                 <a href="#offcanvasExample" data-bs-toggle="offcanvas" a aria-controls="offcanvasExample" role="button"  class="btn btn-primary"> flitrar</a>
                                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -63,53 +75,25 @@
                                         <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtros</h5>
                                         <a type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></a>
                                     </div>
-                                    <ul class="offcanvas-body">
-                                        <li class="form-check">
-                                            <h5>Actividad</h5>
-                                            <input class="check-box-filter form-check-input" type="checkbox" value="" id="flexCheckDefault " checked>
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                <span>Albañil</span>
-                                            </label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Plomero
-                                            </label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Electricista
-                                            </label>
-                                        </li>
-                                        <li class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Mecanico
-                                            </label>
-                                        </li>
-                                        <li class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Jardinero
-                                            </label>
-                                        </li>
 
-                                        <div class="container">
-                                            <h5>Busqueda</h5>
-                                            <form class="d-flex m-3">
-                                                <input type="text" class="form-control me-2" name="search" id="search-name" placeholder="Search..." />
-                                                <!-- <input class="form-control me-2" id="search" name="search" type="text" placeholder="Nombre" aria-label="Search"> -->
-                                                <a class="btn btn-outline-success" data-bs-dismiss="offcanvas" type="button">Filtrar</a>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <form method="POST" th:href="@{/proveedores/filtroBusqueda/__${profesion}__}">
+                                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                </div>
+                                                <div class="offcanvas-body">
+                                                    <div class="form-group my-3">
+                                                        <p>Seleccione la Profesión</p>
+                                                        <select name="profesion">
+                                                            <option></option>
+                                                            <option th:each="proveedoresFiltro : ${proveedoresFiltro}" th:text="${proveedoresFiltro}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit">Filtrar Búsqueda</button>
+                                                </div>
+                                                </div>
                                             </form>
-
-                                            <form class="d-flex m-3">
-                                                <input class="form-control me-2" type="text" name="search" id="search-id" placeholder="ID..." >
-                                                <a class="btn btn-outline-success" data-bs-dismiss="offcanvas" type="button">Filtrar</a>
-                                            </form>
-                                        </div>
-
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -130,34 +114,34 @@
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Profesion</th>
                                             <th scope="col">Calificacion</th>
-                                            <th scope="col">Trabajos realizados</th>
-                                            <th scope="col"   >Editar/Eliminar/Ver</th>
+                                            <th scope="col">Presentacion</th>
+                                            <th scope="col" sec:authorize="hasRole('ADMINISTRADOR')">Editar/Eliminar/Ver</th>
                                         </tr>
                                     </thead>
-                                    <tbody th:each="proveedor: ${proveedores}">
+                                    <tbody th:each="proveedores: ${proveedores}">
                                         <!-- Borrar textContent de cada etiqueta para ser llenado con la base de datos desde el back -->
-                                        <tr >
+                                        <tr>
                                             <th scope="row" class="ps-4">
                                                 <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
                                             </th>
-                                            <th scope="row" ><span th:text="${proveedor.id}">1</span></th>
-                                            <td scope="row" th:text="${proveedor.nombre}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" />Pablo Pereira</td>
-                                            <td><span th:text="${proveedor.profesion}" class="badge badge-soft-success mb-0">Plomero</span></td>
-                                            <td th:text="${proveedor.calificacion}">5</td>
-                                            <td>125</td>
-                                            <td>
+                                            <th scope="row" ><span th:text="${proveedores.id}"></span></th>
+                                            <td scope="row" th:text="${proveedores.nombre}"><img th:src="@{/imagen/proveedor/__${proveedores.id}__}" alt="" class="avatar-sm rounded-circle me-2" /></td>
+                                            <td><span th:text="${proveedores.profesion}" class="badge badge-soft-success mb-0"></span></td>
+                                            <td th:text="${proveedores.calificacion}"></td>
+                                            <td th:text="${proveedores.presentacion}" ></td>
+                                            <td sec:authorize="hasRole('ADMINISTRADOR')" >
                                                 <ul class="list-inline mb-0">
                                                     <li class="list-inline-item">
                                                         <!-- Colocar en esta etiqueta th la ruta para modificar el perfil -->
-                                                        <a th:href="@{}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                                                        <a th:href="@{/proveedor/editar/__${proveedores.id}__}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
                                                     </li>
                                                     <li class="list-inline-item">
                                                         <!-- Colocar en esta etiqueta th que elimina el perfil -->
-                                                        <a th:href="@{}"  data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
+                                                        <a th:href="@{/proveedor/eliminar/__${proveedores.id}__}"  data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
                                                     </li>
                                                     <li class="list-inline-item ">
                                                         <!-- Colocar en esta etiqueta th la ruta hacia el perfil del proveedor -->
-                                                        <a th:href="@{}" class="text-muted px-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class='bx bx-show font-size-18'></i></a>
+                                                        <a th:href="@{/proveedor/__${proveedores.id}__}" class="text-muted px-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class='bx bx-show font-size-18'></i></a>
                                                     </li>
                                                 </ul>
                                             </td>
@@ -192,43 +176,9 @@
             </footer>
         </div>
 
-        <script>
-            const searchInput = document.getElementById("search-name");
-            const rows = document.querySelectorAll("tbody tr");
-
-            searchInput.addEventListener("keyup", function (event) {
-            const q = event.target.value.toLowerCase();
-            rows.forEach((row) => {
-            row.querySelector("td").textContent.toLowerCase().startsWith(q)
-            ? (row.style.display = "table-row")
-            : (row.style.display = "none");
-            });
-            });
-
-            const searchInputId = document.getElementById("search-id");
-            const rows1 = document.querySelectorAll("tbody tr");
-
-            searchInputId.addEventListener("keyup", function (event) {
-            const d = event.target.value.toLowerCase();
-
-            rows1.forEach((row1) => {
-            row1.querySelector("span").textContent.toLowerCase().startsWith(d)
-            ? (row1.style.display = "table-row")
-            : (row1.style.display = "none");
-
-            });
-            });
-
-            const checkBoxFilter = document.getElementById("flexCheckDefault").checked
-            console.log(checkBoxFilter)
-        </script>
-        <script src="./listaproveedro.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 
-
     </body>
-
-    <!---footer--->
 
 </html>

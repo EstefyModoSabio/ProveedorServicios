@@ -42,6 +42,7 @@ public class ImagenControlador {
     @GetMapping("/usuario/{id}")
     public ResponseEntity<byte[]> usuarioImagen(@PathVariable String id) {
         Usuario usuario = usuarioServicio.getOne(id);
+        System.err.println(usuario.getNombre());
         byte[] imagen = usuario.getImagen().getContenido();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);

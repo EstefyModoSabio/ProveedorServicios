@@ -1,5 +1,6 @@
 package ProveedorServicios.demo.Controladores;
 
+import ProveedorServicios.demo.Entidades.Proveedor;
 import ProveedorServicios.demo.Entidades.Usuario;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,28 +25,24 @@ public class PortalControlador {
         if (error != null) {
             modelo.put("error", "usuario o contraseña incorrecto");
         }
-        return "login";
+        return "loginUsuario";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO','ROLE_ADMINISTRADOR', 'ROLE_PROFESIONAL')")
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
-        switch (logueado.getRol().toString()) {
-            case "ADMINISTRADOR":
-                return "redirect:/admin/dashboard";
-            case "USUARIO":
-                return "home_usuario";
-            default:
-                return "home_proveedor";
+        
+        if (logueado.getRol().toString().equals("ADMINISTRADOR")) {
+            return "admin/dashboard";
+        } else {
+            return "index";
         }
     }
 
     @GetMapping("/sobreNosotros")
-    public String sobreNosotros(){
+    public String sobreNosotros() {
         return "SobreNosotros";
     }
-    
-    
+
 }

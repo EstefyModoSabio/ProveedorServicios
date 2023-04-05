@@ -3,6 +3,8 @@ package ProveedorServicios.demo.Entidades;
 
 import ProveedorServicios.demo.Enums.Rol;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -22,6 +24,7 @@ public class Usuario {
     private String telefono; 
     private String password;
     private String email;
+    @Enumerated(value = EnumType.STRING)
     private Rol rol;
     @OneToOne
     private Imagen imagen;

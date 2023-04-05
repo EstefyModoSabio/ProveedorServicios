@@ -1,0 +1,164 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Perfil del usuario</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/user.css">
+    </head>
+
+    <body>
+        <header th:replace="fragments/header :: header" />
+
+        <div class="container m-5 p-2 rounded mx-auto bg-light shadow">
+            <!-- Contenedor para perfil -->
+            <div class="row ">
+                <div class="col-sm-10">
+                    <div class="p-1 h3 text-dark-emphasis text-lg-start mx-auto display-inline-block">
+                        <i class="fa fa-check text-white rounded p-2"></i>
+                        <u th:text="'Perfil '+ ${usuario.nombre}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card container bootstrap snippet" id="borde">
+            <div class="row card-body">
+                <div class="col-sm-2">
+                    <div class="text-center" id="archivo">
+                        <img th:src="@{/imagen/usuario/__${usuario.id}__}" class="avatar img-circle img-thumbnail"
+                             alt="avatar">
+                    </div>
+                </div>
+                <div class="container m-8 p-2 rounded mx-auto  shadow" id="card2">
+                    <!-- contenedor fondo -->
+                    <div class="row m-1 p-4">
+                        <div class="col-md-10">
+                            <div class="p-1 h1 text-dark-emphasis  mx-auto display-inline-block">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- opciones de detalles de usuario y profesionales -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">Detalles</a>
+                        </li>
+
+                        <!-- Button trigger modal -->
+
+                        <div  type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"> Profesionales contratados</a>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Profesionales</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a href="vistaFinal1.html">Juan Perex</a>
+                                                <span class="badge bg-custom rounded-pill">Electricista</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a href="vistaFinal1.html"> Pablo Lopez</a>
+                                                <span class="badge bg-custom rounded-pill">Plomero</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a href="vistaFinal1.html"> Lucas Guerrero</a>
+                                                <div class="badge bg-custom rounded-pill">Gasista</div>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a href="vistaFinal1.html"> Otro profesional</a>
+                                                <span class="badge bg-custom rounded-pill">Piletero</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <a href="vistaFinal1.html"> Otro profesional</a>
+                                                <span class="badge bg-custom rounded-pill">Jardinero</span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </li>
+                    </ul>
+
+                    <!-- Tabla de los detalles del usuario-->
+                    <div class="col-md-12" id="tablaText">
+                        <div class="tab-content profile-tab" id="tabla">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6 ">
+                                        <label>Nombre</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p th:text="${usuario.nombre}"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Dni</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p th:text="${usuario.dni}"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p th:text="${usuario.email}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Celular</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p th:text="${usuario.telefono}"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+                integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+        crossorigin="anonymous"></script>
+        <!-- font Awesome -->
+        <script src="https://kit.fontawesome.com/7cc215dfbb.js" crossorigin="anonymous"></script>
+    </body>
+    <!---footer--->
+    <br>
+    <div class="b-example-divider "></div>
+
+    <footer  th:replace="/fragments/footer :: footer"/>
+
+</html>

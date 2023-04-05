@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,7 +24,7 @@ public class AdminControlador {
    ProveedorServicios proveedorServicio;
     
     
-    @GetMapping("")
+    @GetMapping("/dashboard")
     public String panel(ModelMap modelo){
         
         List<Proveedor> proveedores = proveedorServicio.listarProveedores();
@@ -55,9 +56,10 @@ public class AdminControlador {
     }
     
     @PostMapping("/editar/{id}")
-    public String editar(String id, String cuit, String nombre, String email, String telefono, String profesion, ModelMap modelo){
+    public String editar(String id, String cuit, String nombre, String email, String telefono, String profesion,
+            MultipartFile imagen, int honoraios, ModelMap modelo){
         try {
-            proveedorServicio.editarProveedor (id, cuit, nombre, email, telefono, profesion);
+            proveedorServicio.editarProveedor (id, cuit, nombre, email, telefono, profesion, profesion, profesion, imagen, 0, profesion);
             return "redirect:../lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());

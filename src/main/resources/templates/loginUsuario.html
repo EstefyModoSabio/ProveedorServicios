@@ -1,0 +1,103 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'><link rel="stylesheet" href="./loginProveedor.css">
+        <script src="https://kit.fontawesome.com/79d46aa597.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../css/loginUsuario.css" />
+    </head>
+</head>
+
+<body>
+    <div class="section">
+        <div class="container">
+            <div class="row full-height justify-content-center">
+                <div class="col-12 text-center align-self-center py-5">
+                    <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                        <h6 class="mb-0 pb-3"><span>Inicio Sesion </span><span>Registrarse</span></h6>
+                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+                        <label for="reg-log"></label>
+                        <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                                <div class="card-front">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Inicio Sesion</h4>
+                                            <form th:action="@{/logincheck}" method="POST" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <input type="email" name="email" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>	
+                                                <div class="form-group mt-2">
+                                                    <input type="password" name="password" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>
+                                                <button type="submit"  class="btn mt-4">Iniciar Sesion</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form class="card-back" th:action="@{/usuario/registro}" method="POST" enctype="multipart/form-data" >
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Registrarse</h4>
+                                            <div class="form-group">
+                                                <input type="text" name="nombre" class="form-style" placeholder="Nombre Completo" id="nombre" autocomplete="off">
+                                                <i class="input-icon uil uil-user"></i>
+                                            </div>	
+                                            <div class="form-group mt-2">
+                                                <input type="text" name="direccion" class="form-style" placeholder="Direccion" id="direccion" autocomplete="off">
+                                                <i class="input-icon uil uil-user"></i>
+                                            </div>
+
+                                            <div class="form-group mt-2">
+                                                <input type="text" name="telefono" class="form-style" placeholder="Teléfonos" id="telefonos" autocomplete="off">
+                                                <i class="input-icon uil uil-phone"></i>
+                                            </div>	
+                                            
+                                            <div class="form-group mt-2">
+                                                <input type="text" name="dni" class="form-style" placeholder="Dni" id="telefonos" autocomplete="off">
+                                                <i class="input-icon uil uil-phone"></i>
+                                            </div>
+
+                                            <div class="form-group mt-2">
+                                                <input type="email" name="email" class="form-style" placeholder="Email" id="email" autocomplete="off">
+                                                <i class="input-icon uil uil-at"></i>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" name="password" class="form-style" placeholder="Contraseña" id="pass" autocomplete="off">
+                                                <i class="input-icon uil uil-lock-alt"></i>
+                                            </div>  
+                                            <div class="form-group mt-2">
+                                                <input type="password" name="password2" class="form-style" placeholder="Repetir Contraseña" id="pass2" autocomplete="off">
+                                                <i class="input-icon uil uil-lock-alt"></i>
+                                            </div>    
+
+                                            <div class="form-group mt-2">
+                                                <h2> Ingrese una imagen </h2>
+                                                <input type="file" name="imagen" placeholder="inserte una imagen">
+                                            </div> 
+                                            <button type="submit" class="btn mt-4">Registrarse</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:if="${error != null}" class="card text-white bg-danger mb-2 mensajeError">
+    <div class="card-body">
+        <h5 class="card-title">Ups!</h5>
+        <p class="card-text" th:text="${error}"></p>
+    </div>    
+</div>
+
+</body>
+</html>

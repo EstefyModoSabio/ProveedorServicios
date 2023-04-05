@@ -1,16 +1,13 @@
 package ProveedorServicios.demo.controladores;
 
 import ProveedorServicios.demo.Servicios.UsuarioServicio;
-import ProveedorServicios.demo.Entidades.Proveedor;
 import ProveedorServicios.demo.Entidades.Usuario;
-import ProveedorServicios.demo.Enums.Profesion;
-import ProveedorServicios.demo.Enums.Rol;
 import ProveedorServicios.demo.Excepciones.MiException;
 import ProveedorServicios.demo.servicios.ProveedorServicios;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +26,31 @@ public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    
+    
+    @GetMapping("/login")
+    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
+        if (error != null) {
+            modelo.put("error", "usuario o contraseña incorrecto");
+        }
+        return "loginUsuario";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO','ROLE_ADMINISTRADOR', 'ROLE_PROFESIONAL')")
+    @GetMapping("/inicio")
+    public String inicio(HttpSession session, ModelMap modelo) {
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+
+        switch (logueado.getRol().toString()) {
+            case "ADMINISTRADOR":
+                return "admin/dashboard";
+            case "USUARIO":
+                return "/inicio";
+            case "PROFESIONAL":
+                return "/proveedor/inicio";
+        }
+        return "index";
+    }
 
     @PostMapping("/buscar")
     public String resultadoBusqueda(ModelMap modelo, @RequestParam String busqueda) {
@@ -49,22 +71,22 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String pass, 
-           MultipartFile imagen ,@RequestParam String pass2,@RequestParam String dni,
+    public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, 
+           MultipartFile imagen ,@RequestParam String password2,@RequestParam String dni,
            @RequestParam String direccion,@RequestParam String telefono, ModelMap modelo) {
 
         try {
-            usuarioServicio.crearUsuario(nombre, email, pass, pass2, imagen, dni, direccion,telefono);
+            usuarioServicio.crearUsuario(nombre, email, password, password2, imagen, dni, direccion,telefono);
 
             modelo.put("exito", "El usuario se ha guardado con éxito");
-            return "redirect:../index.html";
+            return "inicio";
 
         } catch (MiException ex) {
 
             //List<String> proveedores = Arrays.asList("Plomero", "Gasista", "Electricista", "Pintor", "Cerrajero", "Jardinero", "Piletero", "Albañil");
             //new ArrayList<MyEnum>(Arrays.asList(MyEnum.values()));
             modelo.put("error", ex.getMessage());
-            return "registro_usuario";
+            return "loginUsuario";
         }
 
     }
@@ -97,4 +119,13 @@ public class UsuarioControlador {
         return "redirect:../lista";
     }
 
+    @GetMapping("/{id}")
+    public String verUsuario(@PathVariable String id, ModelMap modelo) {
+        Usuario usuario = usuarioServicio.getOne(id);
+        modelo.addAttribute("usuario", usuario);
+        return "user";
+    }
+    
+    
+    
 }

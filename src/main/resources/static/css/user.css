@@ -1,0 +1,45 @@
+body {
+    background-color: rgba(234, 228, 228, 0.658);
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.6;
+    
+}
+
+#borde{
+    
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#card2{
+    
+    border: 20px;
+    width: 78%;
+    background-color: rgb(236, 235, 235);
+}
+
+#tablaText{
+    position: relative;
+  top: -20px;
+}
+
+
+.btn-profile {
+    background-color: #dcc00b;
+    border-color: #021114;
+    color: #fff;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    float: right;
+  }
+  
+.bg-custom{
+    background-color: #e3b62f;
+}
+
+#modal-body{
+    background-color: #393e3f;
+}
